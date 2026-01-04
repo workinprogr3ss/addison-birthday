@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Addison</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#hero" class="nav-logo">For Addison</a>
+            <div class="nav-links">
+                <a href="#dates" class="nav-link">Date Night</a>
+                <a href="#notes" class="nav-link">Love Notes</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Happy Birthday</p>
+            <h1 class="hero-title" id="recipient-name">Addison</h1>
+            <p class="hero-message" id="birthday-message">[Your birthday message here]</p>
+            <a href="#dates" class="hero-cta">Explore Your Surprises</a>
+        </div>
+    </section>
+
+    <!-- Date Night Roulette Section -->
+    <section id="dates" class="section dates-section">
+        <div class="container">
+            <h2 class="section-title">Date Night Roulette</h2>
+            <p class="section-subtitle">Spin the wheel and discover your next adventure together</p>
+
+            <div class="roulette-container">
+                <div class="wheel-wrapper">
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel" id="wheel">
+                        <!-- Wheel segments rendered by JS -->
+                    </div>
+                    <button class="spin-button" id="spin-btn">Spin</button>
+                </div>
+
+                <div class="ideas-panel" id="ideas-panel">
+                    <div class="ideas-placeholder">
+                        <p>Spin the wheel to reveal date ideas</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters" id="filters">
+                <div class="filter-group">
+                    <span class="filter-label">Effort:</span>
+                    <button class="filter-chip active" data-filter="effort" data-value="all">All</button>
+                    <button class="filter-chip" data-filter="effort" data-value="low">Low</button>
+                    <button class="filter-chip" data-filter="effort" data-value="medium">Medium</button>
+                    <button class="filter-chip" data-filter="effort" data-value="high">High</button>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Budget:</span>
+                    <button class="filter-chip active" data-filter="budget" data-value="all">All</button>
+                    <button class="filter-chip" data-filter="budget" data-value="free">Free</button>
+                    <button class="filter-chip" data-filter="budget" data-value="$">$</button>
+                    <button class="filter-chip" data-filter="budget" data-value="$$">$$</button>
+                    <button class="filter-chip" data-filter="budget" data-value="$$$">$$$</button>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Season:</span>
+                    <button class="filter-chip active" data-filter="season" data-value="all">All</button>
+                    <button class="filter-chip" data-filter="season" data-value="spring">Spring</button>
+                    <button class="filter-chip" data-filter="season" data-value="summer">Summer</button>
+                    <button class="filter-chip" data-filter="season" data-value="fall">Fall</button>
+                    <button class="filter-chip" data-filter="season" data-value="winter">Winter</button>
+                </div>
+            </div>
+
+            <!-- Favorites Section -->
+            <div class="favorites-section" id="favorites-section">
+                <h3 class="favorites-title">Saved Favorites</h3>
+                <div class="favorites-list" id="favorites-list">
+                    <!-- Favorites rendered by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Notes Section -->
+    <section id="notes" class="section notes-section">
+        <div class="container">
+            <h2 class="section-title">Love Notes</h2>
+            <p class="section-subtitle">Open when you need a little reminder of how much you mean to me</p>
+
+            <div class="notes-grid" id="notes-grid">
+                <!-- Notes rendered by JS -->
+            </div>
+
+            <div class="notes-reset-container" id="notes-reset-container">
+                <button class="notes-reset-btn" id="notes-reset-btn">Reset all notes to unread</button>
+            </div>
+
+            <!-- Note Modal -->
+            <div class="note-modal" id="note-modal">
+                <div class="note-modal-backdrop"></div>
+                <div class="note-card">
+                    <button class="note-close" aria-label="Close note">&times;</button>
+                    <p class="note-trigger" id="modal-trigger"></p>
+                    <div class="note-divider"></div>
+                    <p class="note-message" id="modal-message"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">Made with love, just for you</p>
+        <div class="footer-heart" id="easter-egg-trigger" title="Click me">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
+    </footer>
+
+    <!-- Easter Egg Modal -->
+    <div class="easter-egg-modal" id="easter-egg-modal">
+        <div class="easter-egg-backdrop"></div>
+        <div class="easter-egg-content">
+            <div class="confetti-container" id="confetti"></div>
+            <p class="easter-egg-message" id="easter-egg-message"></p>
+            <button class="easter-egg-close">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
