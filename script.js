@@ -29,95 +29,95 @@ const CONFIG = {
             name: "Cozy Night In",
             icon: "home",
             ideas: [
-                { text: "Studio Ghibli marathon with homemade popcorn and blanket nest", effort: "low", budget: "free", season: "any" },
-                { text: "Cook a new recipe together - Italian pasta from scratch", effort: "medium", budget: "$", season: "any" },
-                { text: "Build a blanket fort and read our favorite books to each other", effort: "low", budget: "free", season: "winter" },
-                { text: "Spa night with face masks, candles, and shoulder massages", effort: "low", budget: "$", season: "any" },
-                { text: "Board game tournament - loser makes breakfast tomorrow", effort: "low", budget: "free", season: "any" },
-                { text: "Bake something ambitious together - croissants or a layer cake", effort: "medium", budget: "$", season: "any" }
+                { id: "cozy-ghibli-marathon", text: "Studio Ghibli marathon with homemade popcorn and blanket nest", effort: "low", budget: "free", season: "any" },
+                { id: "cozy-italian-pasta", text: "Cook a new recipe together - Italian pasta from scratch", effort: "medium", budget: "$", season: "any" },
+                { id: "cozy-blanket-fort", text: "Build a blanket fort and read our favorite books to each other", effort: "low", budget: "free", season: "winter" },
+                { id: "cozy-spa-night", text: "Spa night with face masks, candles, and shoulder massages", effort: "low", budget: "$", season: "any" },
+                { id: "cozy-board-game-tournament", text: "Board game tournament - loser makes breakfast tomorrow", effort: "low", budget: "free", season: "any" },
+                { id: "cozy-bake-ambitious", text: "Bake something ambitious together - croissants or a layer cake", effort: "medium", budget: "$", season: "any" }
             ]
         },
         {
             name: "Adventure Date",
             icon: "compass",
             ideas: [
-                { text: "Sunrise hike to catch golden hour - bring coffee in a thermos", effort: "high", budget: "free", season: "summer" },
-                { text: "Spontaneous road trip - pick a direction and drive for 2 hours", effort: "medium", budget: "$$", season: "any" },
-                { text: "Kayaking or paddleboarding - pack sandwiches for a water picnic", effort: "medium", budget: "$$", season: "summer" },
-                { text: "Geocaching treasure hunt through the city", effort: "medium", budget: "free", season: "any" },
-                { text: "Take a scenic train to a small town we've never explored", effort: "low", budget: "$$", season: "fall" },
-                { text: "Drive somewhere dark for stargazing - bring blankets and hot cocoa", effort: "low", budget: "free", season: "any" }
+                { id: "adventure-sunrise-hike", text: "Sunrise hike to catch golden hour - bring coffee in a thermos", effort: "high", budget: "free", season: "summer" },
+                { id: "adventure-road-trip", text: "Spontaneous road trip - pick a direction and drive for 2 hours", effort: "medium", budget: "$$", season: "any" },
+                { id: "adventure-kayak-paddle", text: "Kayaking or paddleboarding - pack sandwiches for a water picnic", effort: "medium", budget: "$$", season: "summer" },
+                { id: "adventure-geocaching", text: "Geocaching treasure hunt through the city", effort: "medium", budget: "free", season: "any" },
+                { id: "adventure-scenic-train", text: "Take a scenic train to a small town we've never explored", effort: "low", budget: "$$", season: "fall" },
+                { id: "adventure-stargazing-drive", text: "Drive somewhere dark for stargazing - bring blankets and hot cocoa", effort: "low", budget: "free", season: "any" }
             ]
         },
         {
             name: "Foodie Experience",
             icon: "utensils",
             ideas: [
-                { text: "Finally try that restaurant we keep saying we'll go to", effort: "low", budget: "$$$", season: "any" },
-                { text: "Food truck crawl - three trucks, three neighborhoods, one perfect day", effort: "medium", budget: "$$", season: "summer" },
-                { text: "Farmers market morning - buy ingredients, cook lunch together", effort: "low", budget: "$", season: "spring" },
-                { text: "Take a cooking class together - pasta making or sushi rolling", effort: "medium", budget: "$$", season: "any" },
-                { text: "Progressive dinner - appetizers, main, and dessert at three different spots", effort: "medium", budget: "$$$", season: "any" },
-                { text: "Sunset picnic at our favorite spot with homemade everything", effort: "medium", budget: "$", season: "summer" }
+                { id: "foodie-try-restaurant", text: "Finally try that restaurant we keep saying we'll go to", effort: "low", budget: "$$$", season: "any" },
+                { id: "foodie-food-truck-crawl", text: "Food truck crawl - three trucks, three neighborhoods, one perfect day", effort: "medium", budget: "$$", season: "summer" },
+                { id: "foodie-farmers-market", text: "Farmers market morning - buy ingredients, cook lunch together", effort: "low", budget: "$", season: "spring" },
+                { id: "foodie-cooking-class", text: "Take a cooking class together - pasta making or sushi rolling", effort: "medium", budget: "$$", season: "any" },
+                { id: "foodie-progressive-dinner", text: "Progressive dinner - appetizers, main, and dessert at three different spots", effort: "medium", budget: "$$$", season: "any" },
+                { id: "foodie-sunset-picnic", text: "Sunset picnic at our favorite spot with homemade everything", effort: "medium", budget: "$", season: "summer" }
             ]
         },
         {
             name: "Creative Date",
             icon: "palette",
             ideas: [
-                { text: "Paint night at home - same subject, different interpretations", effort: "low", budget: "$$", season: "any" },
-                { text: "Pottery class - make mugs for each other's morning coffee", effort: "medium", budget: "$$", season: "any" },
-                { text: "Write letters to our future selves to open next year", effort: "low", budget: "free", season: "any" },
-                { text: "Create a scrapbook of our favorite memories together", effort: "medium", budget: "$", season: "any" },
-                { text: "Photography walk - take portraits of each other in golden hour", effort: "low", budget: "free", season: "any" },
-                { text: "Candle making class - create scents that remind us of each other", effort: "medium", budget: "$$", season: "winter" }
+                { id: "creative-paint-night", text: "Paint night at home - same subject, different interpretations", effort: "low", budget: "$$", season: "any" },
+                { id: "creative-pottery-class", text: "Pottery class - make mugs for each other's morning coffee", effort: "medium", budget: "$$", season: "any" },
+                { id: "creative-future-letters", text: "Write letters to our future selves to open next year", effort: "low", budget: "free", season: "any" },
+                { id: "creative-scrapbook", text: "Create a scrapbook of our favorite memories together", effort: "medium", budget: "$", season: "any" },
+                { id: "creative-photo-walk", text: "Photography walk - take portraits of each other in golden hour", effort: "low", budget: "free", season: "any" },
+                { id: "creative-candle-making", text: "Candle making class - create scents that remind us of each other", effort: "medium", budget: "$$", season: "winter" }
             ]
         },
         {
             name: "Active & Outdoors",
             icon: "mountain",
             ideas: [
-                { text: "Bike ride on a scenic trail with a coffee stop halfway", effort: "medium", budget: "free", season: "spring" },
-                { text: "Rock climbing gym", effort: "high", budget: "$$", season: "any" },
-                { text: "Beach day", effort: "low", budget: "$", season: "summer" },
-                { text: "Ice skating followed by hot chocolate and people watching", effort: "medium", budget: "$", season: "winter" },
-                { text: "Learn pickleball together", effort: "medium", budget: "$", season: "any" },
-                { text: "Sunrise yoga in the park, then brunch at our favorite cafe", effort: "low", budget: "free", season: "summer" }
+                { id: "active-bike-trail", text: "Bike ride on a scenic trail with a coffee stop halfway", effort: "medium", budget: "free", season: "spring" },
+                { id: "active-rock-climbing", text: "Rock climbing gym", effort: "high", budget: "$$", season: "any" },
+                { id: "active-beach-day", text: "Beach day", effort: "low", budget: "$", season: "summer" },
+                { id: "active-ice-skating", text: "Ice skating followed by hot chocolate and people watching", effort: "medium", budget: "$", season: "winter" },
+                { id: "active-pickleball", text: "Learn pickleball together", effort: "medium", budget: "$", season: "any" },
+                { id: "active-sunrise-yoga", text: "Sunrise yoga in the park, then brunch at our favorite cafe", effort: "low", budget: "free", season: "summer" }
             ]
         },
         {
             name: "Culture & Arts",
             icon: "ticket",
             ideas: [
-                { text: "Spend a whole afternoon getting lost in a museum together", effort: "low", budget: "$", season: "any" },
-                { text: "Live theater or comedy show", effort: "low", budget: "$$", season: "any" },
-                { text: "Local concert or outdoor music", effort: "low", budget: "$$", season: "summer" },
-                { text: "Bookstore date - pick out books for each other to read", effort: "low", budget: "$", season: "any" },
-                { text: "Art gallery opening with wine and pretending to be sophisticated", effort: "low", budget: "free", season: "any" },
+                { id: "culture-museum-afternoon", text: "Spend a whole afternoon getting lost in a museum together", effort: "low", budget: "$", season: "any" },
+                { id: "culture-theater-comedy", text: "Live theater or comedy show", effort: "low", budget: "$$", season: "any" },
+                { id: "culture-local-concert", text: "Local concert or outdoor music", effort: "low", budget: "$$", season: "summer" },
+                { id: "culture-bookstore-date", text: "Bookstore date - pick out books for each other to read", effort: "low", budget: "$", season: "any" },
+                { id: "culture-gallery-opening", text: "Art gallery opening with wine and pretending to be sophisticated", effort: "low", budget: "free", season: "any" },
             ]
         },
         {
             name: "Game Night",
             icon: "dice",
             ideas: [
-                { text: "Two-player board game marathon with themed snacks", effort: "low", budget: "free", season: "any" },
-                { text: "Video game co-op night - beat that game we started months ago", effort: "low", budget: "free", season: "any" },
-                { text: "Escape room challenge - put our teamwork to the ultimate test", effort: "medium", budget: "$$", season: "any" },
-                { text: "Retro arcade or bowling - compete for bragging rights", effort: "low", budget: "$$", season: "any" },
-                { text: "Mini golf tournament - loser plans the next date", effort: "low", budget: "$", season: "summer" },
-                { text: "Card game tournament with silly stakes and good music", effort: "low", budget: "free", season: "any" }
+                { id: "game-two-player-marathon", text: "Two-player board game marathon with themed snacks", effort: "low", budget: "free", season: "any" },
+                { id: "game-coop-night", text: "Video game co-op night - beat that game we started months ago", effort: "low", budget: "free", season: "any" },
+                { id: "game-escape-room", text: "Escape room challenge - put our teamwork to the ultimate test", effort: "medium", budget: "$$", season: "any" },
+                { id: "game-arcade-bowling", text: "Retro arcade or bowling - compete for bragging rights", effort: "low", budget: "$$", season: "any" },
+                { id: "game-mini-golf", text: "Mini golf tournament - loser plans the next date", effort: "low", budget: "$", season: "summer" },
+                { id: "game-card-tournament", text: "Card game tournament with silly stakes and good music", effort: "low", budget: "free", season: "any" }
             ]
         },
         {
             name: "Surprise Me",
             icon: "sparkles",
             ideas: [
-                { text: "Flip a coin at every intersection until we find somewhere perfect", effort: "medium", budget: "free", season: "any" },
-                { text: "Random restaurant roulette", effort: "low", budget: "$$", season: "any" },
-                { text: "Each plan half the date secretly", effort: "medium", budget: "$$", season: "any" },
-                { text: "Say yes to everything day", effort: "medium", budget: "$$", season: "any" },
-                { text: "Recreate our first date, but make it even better this time", effort: "medium", budget: "$$", season: "any" },
-                { text: "Thrift store challenge - find the perfect weird gift for each other", effort: "low", budget: "$", season: "any" }
+                { id: "surprise-coin-flip", text: "Flip a coin at every intersection until we find somewhere perfect", effort: "medium", budget: "free", season: "any" },
+                { id: "surprise-restaurant-roulette", text: "Random restaurant roulette", effort: "low", budget: "$$", season: "any" },
+                { id: "surprise-half-secret", text: "Each plan half the date secretly", effort: "medium", budget: "$$", season: "any" },
+                { id: "surprise-say-yes", text: "Say yes to everything day", effort: "medium", budget: "$$", season: "any" },
+                { id: "surprise-first-date", text: "Recreate our first date, but make it even better this time", effort: "medium", budget: "$$", season: "any" },
+                { id: "surprise-thrift-challenge", text: "Thrift store challenge - find the perfect weird gift for each other", effort: "low", budget: "$", season: "any" }
             ]
         }
     ],
@@ -174,6 +174,42 @@ const CONFIG = {
     // -------------------------------------------------------------------------
     easterEggMessage: "You found it! Here's the truth: you make everything better. The regular stuff, the hard stuff, all of it. Thanks for being you, and for choosing me. Here's to many more adventures together."
 };
+
+// ==========================================================================
+// DOM Cache
+// ==========================================================================
+
+var DOM = {};
+
+function cacheDom() {
+    DOM.particles = document.getElementById('particles');
+    DOM.wheel = document.getElementById('wheel');
+    DOM.spinBtn = document.getElementById('spin-btn');
+    DOM.ideasPanel = document.getElementById('ideas-panel');
+    DOM.filters = document.getElementById('filters');
+    DOM.favoritesSection = document.getElementById('favorites-section');
+    DOM.favoritesList = document.getElementById('favorites-list');
+    DOM.favoritesClear = document.getElementById('favorites-clear');
+    DOM.notesGrid = document.getElementById('notes-grid');
+    DOM.notesResetContainer = document.getElementById('notes-reset-container');
+    DOM.notesResetBtn = document.getElementById('notes-reset-btn');
+    DOM.notesProgress = document.getElementById('notes-progress');
+    DOM.notesProgressText = document.getElementById('notes-progress-text');
+    DOM.noteModal = document.getElementById('note-modal');
+    DOM.noteModalClose = DOM.noteModal ? DOM.noteModal.querySelector('.note-close') : null;
+    DOM.noteModalBackdrop = DOM.noteModal ? DOM.noteModal.querySelector('.note-modal-backdrop') : null;
+    DOM.modalTrigger = document.getElementById('modal-trigger');
+    DOM.modalMessage = document.getElementById('modal-message');
+    DOM.themeToggle = document.getElementById('theme-toggle');
+    DOM.recipientName = document.getElementById('recipient-name');
+    DOM.birthdayMessage = document.getElementById('birthday-message');
+    DOM.easterEggTrigger = document.getElementById('easter-egg-trigger');
+    DOM.easterEggModal = document.getElementById('easter-egg-modal');
+    DOM.easterEggMessage = document.getElementById('easter-egg-message');
+    DOM.confetti = document.getElementById('confetti');
+    DOM.easterEggClose = DOM.easterEggModal ? DOM.easterEggModal.querySelector('.easter-egg-close') : null;
+    DOM.easterEggBackdrop = DOM.easterEggModal ? DOM.easterEggModal.querySelector('.easter-egg-backdrop') : null;
+}
 
 // ==========================================================================
 // Helper: Create SVG Elements
@@ -304,8 +340,17 @@ function toggleTheme() {
 // ==========================================================================
 
 function initParticles() {
-    var container = document.getElementById('particles');
+    var container = DOM.particles;
     var particleCount = 30;
+
+    if (!container || container.dataset.particlesInit === 'true') {
+        return;
+    }
+
+    container.textContent = '';
+    container.dataset.particlesInit = 'true';
+
+    var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < particleCount; i++) {
         var particle = document.createElement('div');
@@ -314,8 +359,10 @@ function initParticles() {
         particle.style.top = Math.random() * 100 + '%';
         particle.style.animationDelay = Math.random() * 20 + 's';
         particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-        container.appendChild(particle);
+        fragment.appendChild(particle);
     }
+
+    container.appendChild(fragment);
 }
 
 // ==========================================================================
@@ -325,14 +372,96 @@ function initParticles() {
 var currentRotation = 0;
 var isSpinning = false;
 var selectedCategory = null;
+var spinToken = 0;
 
 var wheelColors = [
     '#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574',
     '#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574'
 ];
 
+function setSpinButtonState(state) {
+    var spinBtn = DOM.spinBtn;
+    if (!spinBtn) return;
+
+    spinBtn.classList.remove('is-spinning', 'is-after');
+
+    if (state === 'spinning') {
+        spinBtn.textContent = 'Spinning...';
+        spinBtn.disabled = true;
+        spinBtn.classList.add('is-spinning');
+        return;
+    }
+
+    if (state === 'after') {
+        spinBtn.textContent = 'Spin again';
+        spinBtn.disabled = false;
+        spinBtn.classList.add('is-after');
+        return;
+    }
+
+    spinBtn.textContent = 'Spin';
+    spinBtn.disabled = false;
+}
+
+function showIdeasPlaceholder(message, isChoosing) {
+    var panel = DOM.ideasPanel;
+    if (!panel) return;
+
+    panel.textContent = '';
+
+    var placeholder = document.createElement('div');
+    placeholder.className = 'ideas-placeholder' + (isChoosing ? ' is-choosing' : '');
+
+    var text = document.createElement('p');
+    text.className = 'ideas-placeholder-text';
+
+    if (isChoosing) {
+        var label = document.createElement('span');
+        label.textContent = message;
+
+        var dots = document.createElement('span');
+        dots.className = 'ideas-placeholder-dots';
+
+        for (var i = 0; i < 3; i++) {
+            var dot = document.createElement('span');
+            dot.className = 'dot';
+            dot.textContent = '.';
+            dots.appendChild(dot);
+        }
+
+        text.appendChild(label);
+        text.appendChild(dots);
+    } else {
+        text.textContent = message;
+    }
+
+    placeholder.appendChild(text);
+    panel.appendChild(placeholder);
+}
+
+function highlightIdea(item) {
+    var highlighted = document.querySelectorAll('.idea-item.is-highlighted');
+    highlighted.forEach(function(el) {
+        el.classList.remove('is-highlighted');
+    });
+
+    // Force a reflow so the highlight animation can replay.
+    void item.offsetWidth;
+
+    item.classList.add('is-highlighted');
+    function handleHighlightEnd(event) {
+        if (event.animationName !== 'highlight-sheen') {
+            return;
+        }
+        item.classList.remove('is-highlighted');
+        item.removeEventListener('animationend', handleHighlightEnd);
+    }
+    item.addEventListener('animationend', handleHighlightEnd);
+}
+
 function renderWheel() {
-    var wheel = document.getElementById('wheel');
+    var wheel = DOM.wheel;
+    if (!wheel) return;
     var categories = CONFIG.dateCategories;
     var segmentAngle = 360 / categories.length;
     var wheelRadius = 150; // Half of wheel width
@@ -348,9 +477,7 @@ function renderWheel() {
     wheel.style.background = 'conic-gradient(' + gradientStops + ')';
 
     // Clear existing content
-    while (wheel.firstChild) {
-        wheel.removeChild(wheel.firstChild);
-    }
+    wheel.textContent = '';
 
     // Create labels container
     var labelsContainer = document.createElement('div');
@@ -385,13 +512,17 @@ function renderWheel() {
 function spinWheel() {
     if (isSpinning) return;
 
-    var wheel = document.getElementById('wheel');
-    var spinBtn = document.getElementById('spin-btn');
+    var wheel = DOM.wheel;
+    if (!wheel) return;
     var categories = CONFIG.dateCategories;
     var segmentAngle = 360 / categories.length;
+    var spinId = ++spinToken;
 
     isSpinning = true;
-    spinBtn.disabled = true;
+    selectedCategory = null;
+    wheel.classList.add('spinning');
+    setSpinButtonState('spinning');
+    showIdeasPlaceholder('Choosing', true);
 
     // Random number of full rotations (3-5) plus random final position
     var fullRotations = 3 + Math.floor(Math.random() * 3);
@@ -401,28 +532,37 @@ function spinWheel() {
     // Calculate final rotation (we need to account for the pointer at top)
     var finalRotation = currentRotation + (fullRotations * 360) + (360 - segmentOffset);
 
+    function handleSpinEnd(event) {
+        if (event.target !== wheel || event.propertyName !== 'transform') {
+            return;
+        }
+
+        if (spinId !== spinToken) {
+            return;
+        }
+
+        wheel.removeEventListener('transitionend', handleSpinEnd);
+        isSpinning = false;
+        wheel.classList.remove('spinning');
+        selectedCategory = categories[randomSegment];
+        setSpinButtonState('after');
+        showDateIdeas(selectedCategory);
+    }
+
+    wheel.addEventListener('transitionend', handleSpinEnd);
     wheel.style.transform = 'rotate(' + finalRotation + 'deg)';
     currentRotation = finalRotation;
-
-    // After spin completes, show ideas
-    setTimeout(function() {
-        isSpinning = false;
-        spinBtn.disabled = false;
-        selectedCategory = categories[randomSegment];
-        showDateIdeas(selectedCategory);
-    }, 4000);
 }
 
 function showDateIdeas(category) {
-    var panel = document.getElementById('ideas-panel');
+    var panel = DOM.ideasPanel;
+    if (!panel) return;
     var currentFilters = getCurrentFilters();
     var filteredIdeas = filterIdeas(category.ideas, currentFilters);
     var favorites = getFavorites();
 
     // Clear panel
-    while (panel.firstChild) {
-        panel.removeChild(panel.firstChild);
-    }
+    panel.textContent = '';
 
     // Create header
     var header = document.createElement('div');
@@ -436,11 +576,18 @@ function showDateIdeas(category) {
     categoryTitle.textContent = category.name;
     header.appendChild(categoryTitle);
 
+    var count = document.createElement('span');
+    count.className = 'ideas-count';
+    count.textContent = filteredIdeas.length + (filteredIdeas.length === 1 ? ' idea match' : ' ideas match');
+    header.appendChild(count);
+
     panel.appendChild(header);
 
     // Create ideas list
     var list = document.createElement('div');
     list.className = 'ideas-list';
+    var ideaElements = [];
+    var listFragment = document.createDocumentFragment();
 
     if (filteredIdeas.length === 0) {
         var placeholder = document.createElement('div');
@@ -448,10 +595,15 @@ function showDateIdeas(category) {
         var placeholderText = document.createElement('p');
         placeholderText.textContent = 'No ideas match your filters. Try adjusting them!';
         placeholder.appendChild(placeholderText);
-        list.appendChild(placeholder);
+        var resetBtn = document.createElement('button');
+        resetBtn.className = 'ideas-reset';
+        resetBtn.textContent = 'Reset filters';
+        resetBtn.addEventListener('click', resetFilters);
+        placeholder.appendChild(resetBtn);
+        listFragment.appendChild(placeholder);
     } else {
-        filteredIdeas.forEach(function(idea, index) {
-            var ideaId = category.name + '-' + index;
+        filteredIdeas.forEach(function(idea) {
+            var ideaId = idea.id;
             var isFavorited = favorites.indexOf(ideaId) !== -1;
 
             var item = document.createElement('div');
@@ -490,11 +642,33 @@ function showDateIdeas(category) {
             meta.appendChild(favBtn);
 
             item.appendChild(meta);
-            list.appendChild(item);
+            listFragment.appendChild(item);
+            ideaElements.push(item);
         });
     }
 
+    list.appendChild(listFragment);
     panel.appendChild(list);
+
+    if (filteredIdeas.length > 0) {
+        var actions = document.createElement('div');
+        actions.className = 'ideas-actions';
+
+        var pickBtn = document.createElement('button');
+        pickBtn.className = 'ideas-pick-button';
+        pickBtn.textContent = 'Pick one for us';
+        pickBtn.addEventListener('click', function() {
+            var choiceIndex = Math.floor(Math.random() * filteredIdeas.length);
+            var chosenItem = ideaElements[choiceIndex];
+            if (!chosenItem) {
+                return;
+            }
+            highlightIdea(chosenItem);
+        });
+
+        actions.appendChild(pickBtn);
+        panel.appendChild(actions);
+    }
 }
 
 function getCurrentFilters() {
@@ -530,10 +704,42 @@ function initFilters() {
 
             // Re-render ideas if category is selected
             if (selectedCategory) {
+                triggerFilterFeedback();
                 showDateIdeas(selectedCategory);
             }
         });
     });
+}
+
+function resetFilters() {
+    document.querySelectorAll('.filter-group').forEach(function(group) {
+        group.querySelectorAll('.filter-chip').forEach(function(chip) {
+            chip.classList.remove('active');
+        });
+        var allChip = group.querySelector('.filter-chip[data-value="all"]');
+        if (allChip) {
+            allChip.classList.add('active');
+        }
+    });
+
+    if (selectedCategory) {
+        triggerFilterFeedback();
+        showDateIdeas(selectedCategory);
+    }
+}
+
+function triggerFilterFeedback() {
+    var panel = DOM.ideasPanel;
+    if (!panel) {
+        return;
+    }
+
+    panel.classList.remove('is-filtering');
+    void panel.offsetWidth;
+    panel.classList.add('is-filtering');
+    panel.addEventListener('animationend', function() {
+        panel.classList.remove('is-filtering');
+    }, { once: true });
 }
 
 // ==========================================================================
@@ -561,6 +767,11 @@ function toggleFavorite(ideaId, ideaText) {
         localStorage.setItem('favoriteTexts', JSON.stringify(texts));
     } else {
         favorites.splice(index, 1);
+        var storedTexts = JSON.parse(localStorage.getItem('favoriteTexts') || '{}');
+        if (storedTexts[ideaId]) {
+            delete storedTexts[ideaId];
+            localStorage.setItem('favoriteTexts', JSON.stringify(storedTexts));
+        }
     }
 
     saveFavorites(favorites);
@@ -572,11 +783,25 @@ function toggleFavorite(ideaId, ideaText) {
     renderFavorites();
 }
 
+function clearFavorites() {
+    localStorage.removeItem('dateFavorites');
+    localStorage.removeItem('favoriteTexts');
+    renderFavorites();
+    if (selectedCategory) {
+        showDateIdeas(selectedCategory);
+    }
+}
+
 function renderFavorites() {
     var favorites = getFavorites();
     var texts = JSON.parse(localStorage.getItem('favoriteTexts') || '{}');
-    var section = document.getElementById('favorites-section');
-    var list = document.getElementById('favorites-list');
+    var section = DOM.favoritesSection;
+    var list = DOM.favoritesList;
+    if (!section || !list) {
+        return;
+    }
+
+    list.textContent = '';
 
     if (favorites.length === 0) {
         section.classList.remove('has-favorites');
@@ -585,10 +810,7 @@ function renderFavorites() {
 
     section.classList.add('has-favorites');
 
-    // Clear list
-    while (list.firstChild) {
-        list.removeChild(list.firstChild);
-    }
+    var fragment = document.createDocumentFragment();
 
     favorites.forEach(function(id) {
         var item = document.createElement('div');
@@ -607,8 +829,18 @@ function renderFavorites() {
         })(id);
         item.appendChild(removeBtn);
 
-        list.appendChild(item);
+        fragment.appendChild(item);
     });
+
+    list.appendChild(fragment);
+}
+
+function initFavoritesControls() {
+    var clearBtn = DOM.favoritesClear;
+    if (!clearBtn) {
+        return;
+    }
+    clearBtn.addEventListener('click', clearFavorites);
 }
 
 // ==========================================================================
@@ -616,13 +848,16 @@ function renderFavorites() {
 // ==========================================================================
 
 function renderNotes() {
-    var grid = document.getElementById('notes-grid');
+    var grid = DOM.notesGrid;
+    if (!grid) {
+        return;
+    }
     var readNotes = getReadNotes();
 
     // Clear grid
-    while (grid.firstChild) {
-        grid.removeChild(grid.firstChild);
-    }
+    grid.textContent = '';
+
+    var fragment = document.createDocumentFragment();
 
     CONFIG.loveNotes.forEach(function(note, index) {
         var button = document.createElement('button');
@@ -646,10 +881,13 @@ function renderNotes() {
         (function(idx) {
             button.addEventListener('click', function() { openNote(idx); });
         })(index);
-        grid.appendChild(button);
+        fragment.appendChild(button);
     });
 
+    grid.appendChild(fragment);
+
     updateResetButtonVisibility();
+    updateNotesProgress(readNotes);
 }
 
 function getReadNotes() {
@@ -667,30 +905,37 @@ function markNoteAsRead(index) {
 
 function openNote(index) {
     var note = CONFIG.loveNotes[index];
-    var modal = document.getElementById('note-modal');
-    var trigger = document.getElementById('modal-trigger');
-    var message = document.getElementById('modal-message');
+    var modal = DOM.noteModal;
+    var trigger = DOM.modalTrigger;
+    var message = DOM.modalMessage;
+    if (!modal || !trigger || !message) {
+        return;
+    }
 
     trigger.textContent = 'Open ' + note.trigger;
     message.textContent = note.message;
 
     modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    lockBodyScroll();
 
     markNoteAsRead(index);
     renderNotes();
 }
 
 function closeNoteModal() {
-    var modal = document.getElementById('note-modal');
+    var modal = DOM.noteModal;
+    if (!modal) return;
     modal.classList.remove('open');
-    document.body.style.overflow = '';
+    unlockBodyScroll();
 }
 
 function initNoteModal() {
-    var modal = document.getElementById('note-modal');
-    var closeBtn = modal.querySelector('.note-close');
-    var backdrop = modal.querySelector('.note-modal-backdrop');
+    var modal = DOM.noteModal;
+    var closeBtn = DOM.noteModalClose;
+    var backdrop = DOM.noteModalBackdrop;
+    if (!modal || !closeBtn || !backdrop) {
+        return;
+    }
 
     closeBtn.addEventListener('click', closeNoteModal);
     backdrop.addEventListener('click', closeNoteModal);
@@ -704,7 +949,10 @@ function initNoteModal() {
 
 function updateResetButtonVisibility() {
     var readNotes = getReadNotes();
-    var container = document.getElementById('notes-reset-container');
+    var container = DOM.notesResetContainer;
+    if (!container) {
+        return;
+    }
     if (readNotes.length > 0) {
         container.classList.add('has-read');
     } else {
@@ -719,9 +967,44 @@ function resetReadNotes() {
 }
 
 function initResetButton() {
-    var resetBtn = document.getElementById('notes-reset-btn');
+    var resetBtn = DOM.notesResetBtn;
+    if (!resetBtn) {
+        return;
+    }
     resetBtn.addEventListener('click', resetReadNotes);
     updateResetButtonVisibility();
+}
+
+function updateNotesProgress(readNotes) {
+    var progress = DOM.notesProgress;
+    var text = DOM.notesProgressText;
+    var openedCount = readNotes ? readNotes.length : getReadNotes().length;
+    var totalCount = CONFIG.loveNotes.length;
+
+    if (text) {
+        text.textContent = openedCount + '/' + totalCount + ' opened';
+    }
+
+    if (progress) {
+        if (openedCount === totalCount && totalCount > 0) {
+            progress.classList.add('is-complete');
+        } else {
+            progress.classList.remove('is-complete');
+        }
+    }
+}
+
+function lockBodyScroll() {
+    var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+    }
+}
+
+function unlockBodyScroll() {
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
 }
 
 // ==========================================================================
@@ -748,7 +1031,10 @@ function initKonamiCode() {
 }
 
 function initHeartClick() {
-    var heart = document.getElementById('easter-egg-trigger');
+    var heart = DOM.easterEggTrigger;
+    if (!heart) {
+        return;
+    }
 
     heart.addEventListener('click', function() {
         heartClickCount++;
@@ -766,21 +1052,23 @@ function initHeartClick() {
 }
 
 function revealEasterEgg() {
-    var modal = document.getElementById('easter-egg-modal');
-    var message = document.getElementById('easter-egg-message');
-    var confettiContainer = document.getElementById('confetti');
+    var modal = DOM.easterEggModal;
+    var message = DOM.easterEggMessage;
+    var confettiContainer = DOM.confetti;
+    if (!modal || !message || !confettiContainer) {
+        return;
+    }
 
     message.textContent = CONFIG.easterEggMessage;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
 
     // Clear existing confetti
-    while (confettiContainer.firstChild) {
-        confettiContainer.removeChild(confettiContainer.firstChild);
-    }
+    confettiContainer.textContent = '';
 
     // Create confetti
     var colors = ['#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574', '#4a9d6e'];
+    var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < 50; i++) {
         var confetti = document.createElement('div');
@@ -789,20 +1077,26 @@ function revealEasterEgg() {
         confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
         confetti.style.animationDelay = Math.random() * 0.5 + 's';
         confetti.style.animationDuration = (2 + Math.random()) + 's';
-        confettiContainer.appendChild(confetti);
+        fragment.appendChild(confetti);
     }
+
+    confettiContainer.appendChild(fragment);
 }
 
 function closeEasterEgg() {
-    var modal = document.getElementById('easter-egg-modal');
+    var modal = DOM.easterEggModal;
+    if (!modal) return;
     modal.classList.remove('open');
     document.body.style.overflow = '';
 }
 
 function initEasterEggModal() {
-    var modal = document.getElementById('easter-egg-modal');
-    var closeBtn = modal.querySelector('.easter-egg-close');
-    var backdrop = modal.querySelector('.easter-egg-backdrop');
+    var modal = DOM.easterEggModal;
+    var closeBtn = DOM.easterEggClose;
+    var backdrop = DOM.easterEggBackdrop;
+    if (!modal || !closeBtn || !backdrop) {
+        return;
+    }
 
     closeBtn.addEventListener('click', closeEasterEgg);
     backdrop.addEventListener('click', closeEasterEgg);
@@ -813,8 +1107,12 @@ function initEasterEggModal() {
 // ==========================================================================
 
 function populateContent() {
-    document.getElementById('recipient-name').textContent = CONFIG.recipientName;
-    document.getElementById('birthday-message').textContent = CONFIG.birthdayMessage;
+    if (DOM.recipientName) {
+        DOM.recipientName.textContent = CONFIG.recipientName;
+    }
+    if (DOM.birthdayMessage) {
+        DOM.birthdayMessage.textContent = CONFIG.birthdayMessage;
+    }
     document.title = 'Happy Birthday, ' + CONFIG.recipientName;
 }
 
@@ -846,9 +1144,13 @@ function initSmoothScroll() {
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    cacheDom();
+
     // Theme
     initTheme();
-    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    if (DOM.themeToggle) {
+        DOM.themeToggle.addEventListener('click', toggleTheme);
+    }
 
     // Populate content
     populateContent();
@@ -858,9 +1160,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Roulette
     renderWheel();
-    document.getElementById('spin-btn').addEventListener('click', spinWheel);
+    setSpinButtonState('idle');
+    if (DOM.spinBtn) {
+        DOM.spinBtn.addEventListener('click', spinWheel);
+    }
     initFilters();
     renderFavorites();
+    initFavoritesControls();
 
     // Love Notes
     renderNotes();

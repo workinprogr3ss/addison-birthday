@@ -98,19 +98,25 @@
                 <div class="favorites-list" id="favorites-list">
                     <!-- Favorites rendered by JS -->
                 </div>
+                <div class="favorites-actions">
+                    <button class="favorites-clear" id="favorites-clear">Clear favorites</button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Love Notes Section -->
     <section id="notes" class="section notes-section">
-        <div class="container">
-            <h2 class="section-title">Love Notes</h2>
-            <p class="section-subtitle">Open when you need a little reminder of how much you mean to me</p>
+            <div class="container">
+                <h2 class="section-title">Love Notes</h2>
+                <p class="section-subtitle">Open when you need a little reminder of how much you mean to me</p>
+                <div class="notes-progress" id="notes-progress">
+                    <span class="notes-progress-text" id="notes-progress-text">0/0 opened</span>
+                </div>
 
-            <div class="notes-grid" id="notes-grid">
-                <!-- Notes rendered by JS -->
-            </div>
+                <div class="notes-grid" id="notes-grid">
+                    <!-- Notes rendered by JS -->
+                </div>
 
             <div class="notes-reset-container" id="notes-reset-container">
                 <button class="notes-reset-btn" id="notes-reset-btn">Reset all notes to unread</button>
