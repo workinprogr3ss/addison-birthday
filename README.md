@@ -9,7 +9,7 @@ A romantic birthday website featuring an interactive date night wheel and heartf
 
 ## Customization Guide
 
-All content is in the `CONFIG` object at the top of `script.js`. The site comes pre-filled with heartfelt messages - you can use them as-is or personalize them further to make them your own.
+All content is in the `CONFIG` object at the top of `config.js`. The site comes pre-filled with heartfelt messages - you can use them as-is or personalize them further to make them your own.
 
 **Note:** The birthday message, love notes, and date ideas are all written generically enough to work as-is, but they'll be even more meaningful if you add specific memories, inside jokes, and personal details unique to your relationship.
 
@@ -43,6 +43,16 @@ dateCategories: [
 ]
 ```
 
+Optional plan details (used in the "Plan this date" view):
+
+```javascript
+details: {
+    duration: "2-3 hours",
+    checklist: ["Snacks", "Playlist", "Blankets"],
+    note: "Why I picked this"
+}
+```
+
 **Categories included:**
 - Cozy Night In
 - Adventure Date
@@ -65,6 +75,15 @@ loveNotes: [
     },
     // ... 9 more notes
 ]
+```
+
+Bonus note (unlocks after all notes are opened):
+
+```javascript
+bonusLoveNote: {
+    trigger: "when you've opened every note",
+    message: "[Your bonus message here]"
+}
 ```
 
 **Note triggers included:**
@@ -92,13 +111,16 @@ easterEggMessage: "[Your secret message here]"
 ## Features
 
 - **Date Night Roulette**: Spin the wheel to randomly select a date category, then browse ideas with filters for effort, budget, and season
+- **Pick For Us**: Global pick and per-category picks open a plan view instantly
+- **Avoid Repeats + History**: Track recent picks and optionally skip repeats
 - **Save Favorites**: Heart any date idea to save it to your favorites (persisted in localStorage)
 - **Love Notes**: Click "Open When..." buttons to reveal personalized messages
+- **Completion Bonus**: Unlock a bonus note once every note is opened
 - **Read Tracking**: Notes show a checkmark after being read
 - **Dark Mode**: Toggle between light and dark themes (respects system preference)
 - **Mobile Responsive**: Works beautifully on all screen sizes
 - **Smooth Animations**: Delightful micro-interactions throughout
-- **Print Friendly**: CSS optimized for printing sections
+- **Print Friendly**: Print Love Notes with a clean, dedicated layout
 
 ## Color Customization
 
@@ -122,13 +144,19 @@ To change the color palette, edit the CSS custom properties in `styles.css`:
 4. Select "Deploy from a branch" and choose `main`
 5. Your site will be live at `https://yourusername.github.io/repo-name`
 
+## Migration Note
+
+Favorites and date history are stored in `localStorage`. On first load, any legacy favorites keys are upgraded to the new object format and the history key is created locally. You can clear these at any time from the browser storage panel.
+
 ## File Structure
 
 ```
 addison-birthday/
 ├── index.html    # Page structure
 ├── styles.css    # All styling
-├── script.js     # CONFIG object + interactivity
+├── config.js     # CONFIG object + content
+├── storage.js    # localStorage helpers + migrations
+├── ui.js         # UI rendering + interactions
 └── README.md     # This file
 ```
 
