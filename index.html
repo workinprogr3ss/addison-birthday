@@ -49,6 +49,10 @@
             <h2 class="section-title">Date Night Roulette</h2>
             <p class="section-subtitle">Spin the wheel and discover your next adventure together</p>
 
+            <div class="date-actions">
+                <button class="global-pick-button" id="global-pick-btn">Pick a date for us</button>
+            </div>
+
             <div class="roulette-container">
                 <div class="wheel-wrapper">
                     <div class="wheel-pointer"></div>
@@ -56,6 +60,13 @@
                         <!-- Wheel segments rendered by JS -->
                     </div>
                     <button class="spin-button" id="spin-btn">Spin</button>
+                    <div class="wheel-selected" id="wheel-selected">
+                        <span class="wheel-selected-label">Selected category</span>
+                        <div class="wheel-selected-value">
+                            <div class="wheel-selected-icon-wrapper" id="wheel-selected-icon"></div>
+                            <span class="wheel-selected-name" id="wheel-selected-name"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="ideas-panel" id="ideas-panel">
@@ -66,7 +77,11 @@
             </div>
 
             <!-- Filters -->
-            <div class="filters" id="filters">
+            <div class="filters-header">
+                <button class="filters-toggle" id="filters-toggle" aria-expanded="false">Filters</button>
+                <span class="filters-summary" id="filters-summary"></span>
+            </div>
+            <div class="filters is-collapsed" id="filters">
                 <div class="filter-group">
                     <span class="filter-label">Effort:</span>
                     <button class="filter-chip active" data-filter="effort" data-value="all">All</button>
@@ -90,6 +105,14 @@
                     <button class="filter-chip" data-filter="season" data-value="fall">Fall</button>
                     <button class="filter-chip" data-filter="season" data-value="winter">Winter</button>
                 </div>
+                <div class="filter-group filter-group-toggle">
+                    <span class="filter-label">Avoid repeats:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="avoid-repeats-toggle">
+                        <span class="toggle-track"></span>
+                        <span class="toggle-thumb"></span>
+                    </label>
+                </div>
             </div>
 
             <!-- Favorites Section -->
@@ -102,25 +125,42 @@
                     <button class="favorites-clear" id="favorites-clear">Clear favorites</button>
                 </div>
             </div>
+
+            <!-- History Section -->
+            <div class="history-section" id="history-section">
+                <h3 class="favorites-title">Recently Picked</h3>
+                <div class="history-list" id="history-list">
+                    <!-- History rendered by JS -->
+                </div>
+                <div class="history-actions">
+                    <button class="history-clear" id="history-clear">Clear history</button>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Love Notes Section -->
     <section id="notes" class="section notes-section">
-            <div class="container">
-                <h2 class="section-title">Love Notes</h2>
-                <p class="section-subtitle">Open when you need a little reminder of how much you mean to me</p>
-                <div class="notes-progress" id="notes-progress">
-                    <span class="notes-progress-text" id="notes-progress-text">0/0 opened</span>
-                </div>
+        <div class="container">
+            <h2 class="section-title">Love Notes</h2>
+            <p class="section-subtitle">Open when you need a little reminder of how much you mean to me</p>
+            <div class="notes-progress" id="notes-progress">
+                <span class="notes-progress-text" id="notes-progress-text">0/0 opened</span>
+            </div>
+            <div class="notes-actions">
+                <button class="notes-print-btn" id="notes-print-btn">Print Love Notes</button>
+            </div>
 
-                <div class="notes-grid" id="notes-grid">
-                    <!-- Notes rendered by JS -->
-                </div>
+            <div class="notes-grid" id="notes-grid">
+                <!-- Notes rendered by JS -->
+            </div>
 
             <div class="notes-reset-container" id="notes-reset-container">
                 <button class="notes-reset-btn" id="notes-reset-btn">Reset all notes to unread</button>
             </div>
+
+            <div class="notes-print" id="notes-print" aria-hidden="true"></div>
+            <div class="notes-confetti" id="notes-confetti" aria-hidden="true"></div>
 
             <!-- Note Modal -->
             <div class="note-modal" id="note-modal">
@@ -155,6 +195,30 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Plan Modal -->
+    <div class="plan-modal" id="plan-modal">
+        <div class="plan-modal-backdrop"></div>
+        <div class="plan-modal-content">
+            <button class="plan-modal-close" aria-label="Close plan">&times;</button>
+            <div class="plan-modal-header">
+                <div class="plan-icon-wrapper" id="plan-icon"></div>
+                <div class="plan-header-text">
+                    <p class="plan-category" id="plan-category"></p>
+                    <h3 class="plan-title" id="plan-title"></h3>
+                </div>
+            </div>
+            <div class="plan-tags" id="plan-tags"></div>
+            <div class="plan-details">
+                <div class="plan-detail" id="plan-duration"></div>
+                <div class="plan-detail" id="plan-checklist"></div>
+                <div class="plan-detail" id="plan-note"></div>
+                <p class="plan-empty" id="plan-empty"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="storage.js"></script>
+    <script src="ui.js"></script>
 </body>
 </html>
