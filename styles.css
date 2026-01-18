@@ -58,6 +58,7 @@
     --max-width: 1200px;
     --border-radius: 0.5rem;
     --border-radius-lg: 1rem;
+    --wheel-size: 300px;
 }
 
 /* Dark Mode */
@@ -433,6 +434,15 @@ h1, h2, h3 {
     gap: var(--space-lg);
 }
 
+.wheel-stage {
+    position: relative;
+    width: var(--wheel-size);
+    height: var(--wheel-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .wheel-pointer {
     position: absolute;
     top: -10px;
@@ -448,8 +458,8 @@ h1, h2, h3 {
 }
 
 .wheel {
-    width: 300px;
-    height: 300px;
+    width: var(--wheel-size);
+    height: var(--wheel-size);
     border-radius: 50%;
     position: relative;
     background: conic-gradient(
@@ -1962,6 +1972,7 @@ h1, h2, h3 {
 @media (max-width: 768px) {
     :root {
         --header-height: 3.5rem;
+        --wheel-size: 260px;
     }
 
     .nav-link {
@@ -1991,11 +2002,6 @@ h1, h2, h3 {
 
     .filters-summary {
         text-align: center;
-    }
-
-    .wheel {
-        width: 260px;
-        height: 260px;
     }
 
     .spin-button {
@@ -2049,13 +2055,12 @@ h1, h2, h3 {
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 0 var(--space-md);
+    :root {
+        --wheel-size: 220px;
     }
 
-    .wheel {
-        width: 220px;
-        height: 220px;
+    .container {
+        padding: 0 var(--space-md);
     }
 
     .spin-button {

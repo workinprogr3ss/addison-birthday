@@ -55,11 +55,13 @@
 
             <div class="roulette-container">
                 <div class="wheel-wrapper">
-                    <div class="wheel-pointer"></div>
-                    <div class="wheel" id="wheel">
-                        <!-- Wheel segments rendered by JS -->
+                    <div class="wheel-stage">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="wheel">
+                            <!-- Wheel segments rendered by JS -->
+                        </div>
+                        <button class="spin-button" id="spin-btn">Spin</button>
                     </div>
-                    <button class="spin-button" id="spin-btn">Spin</button>
                     <div class="wheel-selected" id="wheel-selected">
                         <span class="wheel-selected-label">Selected category</span>
                         <div class="wheel-selected-value">
