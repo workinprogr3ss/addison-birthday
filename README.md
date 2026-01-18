@@ -120,7 +120,6 @@ easterEggMessage: "[Your secret message here]"
 - **Dark Mode**: Toggle between light and dark themes (respects system preference)
 - **Mobile Responsive**: Works beautifully on all screen sizes
 - **Smooth Animations**: Delightful micro-interactions throughout
-- **Print Friendly**: Print Love Notes with a clean, dedicated layout
 
 ## Color Customization
 

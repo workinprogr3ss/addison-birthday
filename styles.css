@@ -1350,28 +1350,6 @@ h1, h2, h3 {
     }
 }
 
-.notes-actions {
-    display: flex;
-    justify-content: center;
-    margin-bottom: var(--space-lg);
-}
-
-.notes-print-btn {
-    padding: var(--space-sm) var(--space-lg);
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    transition: all var(--duration-fast) var(--ease-out);
-}
-
-.notes-print-btn:hover {
-    color: var(--primary);
-    border-color: var(--primary);
-    background: var(--surface-hover);
-}
-
 .notes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1564,10 +1542,6 @@ h1, h2, h3 {
 .note-modal.open .note-card {
     opacity: 1;
     transform: translateY(0) scale(1);
-}
-
-.notes-print {
-    display: none;
 }
 
 .notes-confetti {
@@ -1941,29 +1915,21 @@ h1, h2, h3 {
 
 @media print {
     .header,
-    .hero,
-    .dates-section,
-    .footer,
-    .note-modal,
-    .plan-modal,
-    .easter-egg-modal,
-    .notes-grid,
-    .notes-progress,
-    .notes-actions,
-    .notes-reset-container,
-    .notes-confetti,
     .hero-cta,
     .spin-button,
     .wheel-wrapper,
-    .ideas-panel,
     .filters-header,
     .filters,
     .favorites-section,
     .history-section,
     .note-button,
-    .footer-heart,
+    .notes-reset-container,
     .theme-toggle,
-    #particles {
+    .footer-heart,
+    #particles,
+    .note-modal,
+    .plan-modal,
+    .easter-egg-modal {
         display: none !important;
     }
 
@@ -1974,45 +1940,18 @@ h1, h2, h3 {
 
     .section {
         min-height: auto;
-        padding: 0;
-    }
-
-    .notes-section {
-        padding: 0;
-    }
-
-    .notes-print {
-        display: block;
-    }
-
-    .notes-print h2 {
-        font-family: var(--font-serif);
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
-
-    .notes-print-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .print-note {
-        border: 1px solid #ccc;
-        padding: 1rem;
+        padding: 1rem 0;
         page-break-inside: avoid;
     }
 
-    .print-note h3 {
-        font-family: var(--font-serif);
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+    .hero {
+        min-height: auto;
+        padding: 2rem 0;
     }
 
-    .print-note p {
-        font-size: 1rem;
-        line-height: 1.6;
+    .ideas-panel {
+        box-shadow: none;
+        border: 1px solid #ccc;
     }
 }
 

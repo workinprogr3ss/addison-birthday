@@ -52,8 +52,6 @@
         DOM.notesResetBtn = document.getElementById('notes-reset-btn');
         DOM.notesProgress = document.getElementById('notes-progress');
         DOM.notesProgressText = document.getElementById('notes-progress-text');
-        DOM.notesPrintBtn = document.getElementById('notes-print-btn');
-        DOM.notesPrint = document.getElementById('notes-print');
         DOM.notesConfetti = document.getElementById('notes-confetti');
         DOM.noteModal = document.getElementById('note-modal');
         DOM.noteModalClose = DOM.noteModal ? DOM.noteModal.querySelector('.note-close') : null;
@@ -1510,63 +1508,6 @@
         }
     }
 
-    function renderNotesPrint() {
-        if (!DOM.notesPrint) {
-            return;
-        }
-
-        DOM.notesPrint.textContent = '';
-
-        const title = document.createElement('h2');
-        title.textContent = 'Love Notes';
-        DOM.notesPrint.appendChild(title);
-
-        const wrapper = document.createElement('div');
-        wrapper.className = 'notes-print-list';
-
-        CONFIG.loveNotes.forEach(function(note) {
-            const block = document.createElement('div');
-            block.className = 'print-note';
-
-            const trigger = document.createElement('h3');
-            trigger.textContent = 'Open ' + note.trigger;
-            block.appendChild(trigger);
-
-            const message = document.createElement('p');
-            message.textContent = note.message;
-            block.appendChild(message);
-
-            wrapper.appendChild(block);
-        });
-
-        if (CONFIG.bonusLoveNote) {
-            const block = document.createElement('div');
-            block.className = 'print-note';
-
-            const trigger = document.createElement('h3');
-            trigger.textContent = 'Open ' + CONFIG.bonusLoveNote.trigger;
-            block.appendChild(trigger);
-
-            const message = document.createElement('p');
-            message.textContent = CONFIG.bonusLoveNote.message;
-            block.appendChild(message);
-
-            wrapper.appendChild(block);
-        }
-
-        DOM.notesPrint.appendChild(wrapper);
-    }
-
-    function initPrintButton() {
-        if (!DOM.notesPrintBtn) {
-            return;
-        }
-        DOM.notesPrintBtn.addEventListener('click', function() {
-            renderNotesPrint();
-            window.print();
-        });
-    }
-
     // ======================================================================
     // Confetti
     // ======================================================================
@@ -1786,8 +1727,6 @@
         renderNotes();
         initNoteModal();
         initResetButton();
-        initPrintButton();
-        renderNotesPrint();
 
         // Plan modal
         initPlanModal();
