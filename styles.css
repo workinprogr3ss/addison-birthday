@@ -88,7 +88,29 @@
 }
 
 /* ==========================================================================
-   2. Reset and Base Styles
+   2. Skip Link (Accessibility)
+   ========================================================================== */
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--primary);
+    color: white;
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    z-index: 1000;
+    transition: top var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+    top: var(--space-sm);
+}
+
+/* ==========================================================================
+   3. Reset and Base Styles
    ========================================================================== */
 
 *, *::before, *::after {
@@ -127,6 +149,78 @@ button {
     background: none;
 }
 
+/* ==========================================================================
+   Focus States (Accessibility)
+   ========================================================================== */
+
+/* Default focus outline for all interactive elements */
+:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Hide focus outline for mouse users, show for keyboard */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Specific focus styles for buttons */
+button:focus-visible,
+.filter-chip:focus-visible,
+.spin-button:focus-visible,
+.hero-cta:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(124, 92, 191, 0.2);
+}
+
+/* Navigation links focus */
+.nav-link:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+/* Theme toggle focus */
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(124, 92, 191, 0.2);
+}
+
+/* Note button focus */
+.note-button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-color: var(--primary);
+}
+
+/* Modal close button focus */
+.note-close:focus-visible,
+.easter-egg-close:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    background: var(--primary);
+    color: white;
+}
+
+/* Footer heart button focus */
+.footer-heart:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+/* Favorite button focus */
+.idea-favorite:focus-visible,
+.favorite-remove:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -134,7 +228,7 @@ img {
 }
 
 /* ==========================================================================
-   3. Typography
+   4. Typography
    ========================================================================== */
 
 h1, h2, h3 {
@@ -159,7 +253,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   4. Layout Utilities
+   5. Layout Utilities
    ========================================================================== */
 
 .container {
@@ -178,7 +272,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   5. Particles Background
+   6. Particles Background
    ========================================================================== */
 
 #particles {
@@ -222,7 +316,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   6. Header / Navigation
+   7. Header / Navigation
    ========================================================================== */
 
 .header {
@@ -231,7 +325,7 @@ h1, h2, h3 {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: rgba(var(--bg-primary), 0.8);
+    background: rgba(250, 248, 252, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -239,15 +333,14 @@ h1, h2, h3 {
     transition: background-color var(--duration-base) var(--ease-out);
 }
 
-[data-theme="dark"] .header,
+[data-theme="dark"] .header {
+    background: rgba(15, 10, 26, 0.85);
+}
+
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) .header {
         background: rgba(15, 10, 26, 0.85);
     }
-}
-
-[data-theme="light"] .header {
-    background: rgba(250, 248, 252, 0.85);
 }
 
 .nav {
@@ -324,7 +417,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   7. Hero Section
+   8. Hero Section
    ========================================================================== */
 
 .hero {
@@ -402,7 +495,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   8. Date Night Roulette
+   9. Date Night Roulette
    ========================================================================== */
 
 .dates-section {
@@ -960,7 +1053,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   9. Love Notes Section
+   10. Love Notes Section
    ========================================================================== */
 
 .notes-section {
@@ -1161,6 +1254,7 @@ h1, h2, h3 {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     opacity: 0;
     transition: opacity 220ms var(--ease-out);
@@ -1236,7 +1330,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   10. Footer
+   11. Footer
    ========================================================================== */
 
 .footer {
@@ -1273,7 +1367,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   11. Easter Egg Modal
+   12. Easter Egg Modal
    ========================================================================== */
 
 .easter-egg-modal {
@@ -1374,7 +1468,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   12. Print Styles
+   13. Print Styles
    ========================================================================== */
 
 @media print {
@@ -1414,7 +1508,7 @@ h1, h2, h3 {
 }
 
 /* ==========================================================================
-   13. Responsive Breakpoints
+   14. Responsive Breakpoints
    ========================================================================== */
 
 @media (max-width: 768px) {
