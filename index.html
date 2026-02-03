@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Addison</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Particle Background -->
     <div id="particles" aria-hidden="true"></div>
 
@@ -33,6 +37,7 @@
         </nav>
     </header>
 
+    <main id="main-content" tabindex="-1">
     <!-- Hero Section -->
     <section id="hero" class="hero">
         <div class="hero-content">
@@ -71,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="ideas-panel" id="ideas-panel">
+                <div class="ideas-panel" id="ideas-panel" aria-live="polite" aria-atomic="true">
                     <div class="ideas-placeholder">
                         <p>Spin the wheel to reveal date ideas</p>
                     </div>
@@ -83,29 +88,29 @@
                 <button class="filters-toggle" id="filters-toggle" aria-expanded="false">Filters</button>
                 <span class="filters-summary" id="filters-summary"></span>
             </div>
-            <div class="filters is-collapsed" id="filters">
-                <div class="filter-group">
-                    <span class="filter-label">Effort:</span>
-                    <button class="filter-chip active" data-filter="effort" data-value="all">All</button>
-                    <button class="filter-chip" data-filter="effort" data-value="low">Low</button>
-                    <button class="filter-chip" data-filter="effort" data-value="medium">Medium</button>
-                    <button class="filter-chip" data-filter="effort" data-value="high">High</button>
+            <div class="filters is-collapsed" id="filters" role="group" aria-label="Filter date ideas">
+                <div class="filter-group" role="group" aria-label="Filter by effort">
+                    <span class="filter-label" id="effort-label">Effort:</span>
+                    <button class="filter-chip active" data-filter="effort" data-value="all" aria-pressed="true">All</button>
+                    <button class="filter-chip" data-filter="effort" data-value="low" aria-pressed="false">Low</button>
+                    <button class="filter-chip" data-filter="effort" data-value="medium" aria-pressed="false">Medium</button>
+                    <button class="filter-chip" data-filter="effort" data-value="high" aria-pressed="false">High</button>
                 </div>
-                <div class="filter-group">
-                    <span class="filter-label">Budget:</span>
-                    <button class="filter-chip active" data-filter="budget" data-value="all">All</button>
-                    <button class="filter-chip" data-filter="budget" data-value="free">Free</button>
-                    <button class="filter-chip" data-filter="budget" data-value="$">$</button>
-                    <button class="filter-chip" data-filter="budget" data-value="$$">$$</button>
-                    <button class="filter-chip" data-filter="budget" data-value="$$$">$$$</button>
+                <div class="filter-group" role="group" aria-label="Filter by budget">
+                    <span class="filter-label" id="budget-label">Budget:</span>
+                    <button class="filter-chip active" data-filter="budget" data-value="all" aria-pressed="true">All</button>
+                    <button class="filter-chip" data-filter="budget" data-value="free" aria-pressed="false">Free</button>
+                    <button class="filter-chip" data-filter="budget" data-value="$" aria-pressed="false">$</button>
+                    <button class="filter-chip" data-filter="budget" data-value="$$" aria-pressed="false">$$</button>
+                    <button class="filter-chip" data-filter="budget" data-value="$$$" aria-pressed="false">$$$</button>
                 </div>
-                <div class="filter-group">
-                    <span class="filter-label">Season:</span>
-                    <button class="filter-chip active" data-filter="season" data-value="all">All</button>
-                    <button class="filter-chip" data-filter="season" data-value="spring">Spring</button>
-                    <button class="filter-chip" data-filter="season" data-value="summer">Summer</button>
-                    <button class="filter-chip" data-filter="season" data-value="fall">Fall</button>
-                    <button class="filter-chip" data-filter="season" data-value="winter">Winter</button>
+                <div class="filter-group" role="group" aria-label="Filter by season">
+                    <span class="filter-label" id="season-label">Season:</span>
+                    <button class="filter-chip active" data-filter="season" data-value="all" aria-pressed="true">All</button>
+                    <button class="filter-chip" data-filter="season" data-value="spring" aria-pressed="false">Spring</button>
+                    <button class="filter-chip" data-filter="season" data-value="summer" aria-pressed="false">Summer</button>
+                    <button class="filter-chip" data-filter="season" data-value="fall" aria-pressed="false">Fall</button>
+                    <button class="filter-chip" data-filter="season" data-value="winter" aria-pressed="false">Winter</button>
                 </div>
                 <div class="filter-group filter-group-toggle">
                     <span class="filter-label">Avoid repeats:</span>
@@ -161,7 +166,7 @@
             <div class="notes-confetti" id="notes-confetti" aria-hidden="true"></div>
 
             <!-- Note Modal -->
-            <div class="note-modal" id="note-modal">
+            <div class="note-modal" id="note-modal" role="dialog" aria-modal="true" aria-labelledby="modal-trigger">
                 <div class="note-modal-backdrop"></div>
                 <div class="note-card">
                     <button class="note-close" aria-label="Close note">&times;</button>
@@ -172,19 +177,20 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <p class="footer-text">Made with love, just for you</p>
-        <div class="footer-heart" id="easter-egg-trigger" title="Click me">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <button class="footer-heart" id="easter-egg-trigger" title="Click me" aria-label="Secret surprise">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
-        </div>
+        </button>
     </footer>
 
     <!-- Easter Egg Modal -->
-    <div class="easter-egg-modal" id="easter-egg-modal">
+    <div class="easter-egg-modal" id="easter-egg-modal" role="dialog" aria-modal="true" aria-labelledby="easter-egg-message">
         <div class="easter-egg-backdrop"></div>
         <div class="easter-egg-content">
             <div class="confetti-container" id="confetti"></div>

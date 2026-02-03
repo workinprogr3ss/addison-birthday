@@ -527,8 +527,14 @@
                 const group = chip.closest('.filter-group');
                 group.querySelectorAll('.filter-chip').forEach(function(button) {
                     button.classList.remove('active');
+                    if (button.hasAttribute('aria-pressed')) {
+                        button.setAttribute('aria-pressed', 'false');
+                    }
                 });
                 chip.classList.add('active');
+                if (chip.hasAttribute('aria-pressed')) {
+                    chip.setAttribute('aria-pressed', 'true');
+                }
 
                 updateFiltersSummary();
 
@@ -546,10 +552,16 @@
         document.querySelectorAll('.filter-group').forEach(function(group) {
             group.querySelectorAll('.filter-chip').forEach(function(chip) {
                 chip.classList.remove('active');
+                if (chip.hasAttribute('aria-pressed')) {
+                    chip.setAttribute('aria-pressed', 'false');
+                }
             });
             const allChip = group.querySelector('.filter-chip[data-value="all"]');
             if (allChip) {
                 allChip.classList.add('active');
+                if (allChip.hasAttribute('aria-pressed')) {
+                    allChip.setAttribute('aria-pressed', 'true');
+                }
             }
         });
 
