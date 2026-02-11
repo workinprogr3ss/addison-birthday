@@ -1698,6 +1698,37 @@
         });
     }
 
+    function initWheelResize() {
+        const wheel = DOM.wheel;
+        if (!wheel) {
+            return;
+        }
+
+        let resizeTimer = null;
+
+        function scheduleRender() {
+            if (state.isSpinning) {
+                return;
+            }
+            if (resizeTimer) {
+                clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(function() {
+                renderWheel();
+                resizeTimer = null;
+            }, 120);
+        }
+
+        if (typeof ResizeObserver !== 'undefined') {
+            const observer = new ResizeObserver(function() {
+                scheduleRender();
+            });
+            observer.observe(wheel);
+        } else {
+            window.addEventListener('resize', scheduleRender);
+        }
+    }
+
     // ======================================================================
     // Initialize Everything
     // ======================================================================
@@ -1734,6 +1765,7 @@
         initFavoritesControls();
         renderHistory();
         initHistoryControls();
+        initWheelResize();
 
         // Love Notes
         renderNotes();
