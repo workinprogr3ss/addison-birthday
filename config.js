@@ -181,7 +181,7 @@ window.CONFIG = {
         },
         {
             trigger: "when you want to laugh",
-            message: "Remember when we laughed so hard we couldn't breathe? Let's do that again soon. Your laugh is still my favorite sound."
+            message: "Just wanted to say I love hearing you laugh."
         },
         {
             trigger: "when you miss me",
@@ -197,7 +197,7 @@ window.CONFIG = {
         },
         {
             trigger: "when you can't sleep",
-            message: "\"The night is darkest just before the dawn.\" by Harvey Dent. But also: counting sheep is overrated. Try thinking about that ridiculous thing that made us laugh yesterday."
+            message: "You don't have to solve anything tonight. Put the phone down, take a slow breath, and let your brain clock out. We can deal with everything in the morning."
         },
         {
             trigger: "when you're overthinking",

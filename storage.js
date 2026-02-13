@@ -15,17 +15,54 @@
         bonusNoteRead: 'bonusNoteRead',
         dateHistory: 'dateHistory',
         avoidRepeats: 'avoidRepeats',
-        checklist: 'dateChecklist'
+        checklist: 'dateChecklist',
+        filters: 'dateFilters'
     };
 
     const HISTORY_LIMIT = 50;
+    const DEFAULT_FILTERS = {
+        effort: 'all',
+        budget: 'all',
+        season: 'all'
+    };
+    const FILTER_OPTIONS = {
+        effort: ['all', 'low', 'medium', 'high'],
+        budget: ['all', 'free', '$', '$$', '$$$'],
+        season: ['all', 'spring', 'summer', 'fall', 'winter']
+    };
+
+    function safeGetItem(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function safeSetItem(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function safeRemoveItem(key) {
+        try {
+            localStorage.removeItem(key);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
 
     function safeSetJSON(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
+        safeSetItem(key, JSON.stringify(value));
     }
 
     function safeParseJSON(key, fallback) {
-        const raw = localStorage.getItem(key);
+        const raw = safeGetItem(key);
         if (raw === null) {
             return fallback;
         }
@@ -38,7 +75,7 @@
     }
 
     function getThemePreference() {
-        const raw = localStorage.getItem(STORAGE_KEYS.theme);
+        const raw = safeGetItem(STORAGE_KEYS.theme);
         if (raw === null) {
             return null;
         }
@@ -58,7 +95,7 @@
     }
 
     function getValentineModePreference() {
-        const raw = localStorage.getItem(STORAGE_KEYS.valentineMode);
+        const raw = safeGetItem(STORAGE_KEYS.valentineMode);
         if (raw === null) {
             return false;
         }
@@ -115,6 +152,40 @@
         return {};
     }
 
+    function normalizeFilters(filters) {
+        const source = filters && typeof filters === 'object' && !Array.isArray(filters)
+            ? filters
+            : {};
+        let changed = source !== filters;
+        const normalized = {
+            effort: DEFAULT_FILTERS.effort,
+            budget: DEFAULT_FILTERS.budget,
+            season: DEFAULT_FILTERS.season
+        };
+
+        Object.keys(DEFAULT_FILTERS).forEach(function(key) {
+            const allowed = FILTER_OPTIONS[key];
+            const raw = typeof source[key] === 'string'
+                ? source[key].trim().toLowerCase()
+                : '';
+            if (allowed.indexOf(raw) !== -1) {
+                normalized[key] = raw;
+            } else if (raw) {
+                changed = true;
+            }
+
+            if (!Object.prototype.hasOwnProperty.call(source, key)) {
+                changed = true;
+            }
+        });
+
+        if (changed) {
+            safeSetJSON(STORAGE_KEYS.filters, normalized);
+        }
+
+        return normalized;
+    }
+
     function getFavorites() {
         const favorites = safeParseJSON(STORAGE_KEYS.favorites, []);
         return normalizeArray(favorites, STORAGE_KEYS.favorites);
@@ -134,7 +205,7 @@
     }
 
     function clearReadNotes() {
-        localStorage.removeItem(STORAGE_KEYS.readNotes);
+        safeRemoveItem(STORAGE_KEYS.readNotes);
     }
 
     function getBonusNoteRead() {
@@ -168,7 +239,7 @@
     }
 
     function clearHistory() {
-        localStorage.removeItem(STORAGE_KEYS.dateHistory);
+        safeRemoveItem(STORAGE_KEYS.dateHistory);
     }
 
     function getAvoidRepeats() {
@@ -182,6 +253,15 @@
 
     function setAvoidRepeats(value) {
         safeSetJSON(STORAGE_KEYS.avoidRepeats, Boolean(value));
+    }
+
+    function getFilters() {
+        const filters = safeParseJSON(STORAGE_KEYS.filters, DEFAULT_FILTERS);
+        return normalizeFilters(filters);
+    }
+
+    function setFilters(filters) {
+        safeSetJSON(STORAGE_KEYS.filters, normalizeFilters(filters));
     }
 
     function getChecklistState() {
@@ -209,6 +289,9 @@
         }
 
         window.CONFIG.dateCategories.forEach(function(category) {
+            if (!category || !Array.isArray(category.ideas)) {
+                return;
+            }
             category.ideas.forEach(function(idea) {
                 index[idea.id] = {
                     id: idea.id,
@@ -272,11 +355,11 @@
         });
 
         safeSetJSON(STORAGE_KEYS.favorites, migrated);
-        localStorage.removeItem(STORAGE_KEYS.legacyFavoriteTexts);
+        safeRemoveItem(STORAGE_KEYS.legacyFavoriteTexts);
     }
 
     function migrateTheme() {
-        const raw = localStorage.getItem(STORAGE_KEYS.theme);
+        const raw = safeGetItem(STORAGE_KEYS.theme);
         if (raw === 'light' || raw === 'dark') {
             safeSetJSON(STORAGE_KEYS.theme, raw);
         }
@@ -308,6 +391,8 @@
         clearHistory: clearHistory,
         getAvoidRepeats: getAvoidRepeats,
         setAvoidRepeats: setAvoidRepeats,
+        getFilters: getFilters,
+        setFilters: setFilters,
         getChecklistState: getChecklistState,
         setChecklistState: setChecklistState,
         updateChecklistItem: updateChecklistItem

@@ -21,13 +21,16 @@
         notesComplete: false,
         valentineWheelSurpriseShown: false,
         defaultHeroEyebrowText: null,
-        pendingWheelRender: false
+        pendingWheelRender: false,
+        openModals: []
     };
 
     const ideaIndex = buildIdeaIndex();
     const allIdeas = buildIdeaList();
 
     let scrollLockCount = 0;
+    const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const modalFocusOrigin = new WeakMap();
 
     function cacheDom() {
         DOM.particles = document.getElementById('particles');
@@ -82,6 +85,94 @@
         DOM.confetti = document.getElementById('confetti');
         DOM.easterEggClose = DOM.easterEggModal ? DOM.easterEggModal.querySelector('.easter-egg-close') : null;
         DOM.easterEggBackdrop = DOM.easterEggModal ? DOM.easterEggModal.querySelector('.easter-egg-backdrop') : null;
+    }
+
+    function prefersReducedMotion() {
+        if (!window.matchMedia) {
+            return false;
+        }
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function getFocusableElements(container) {
+        if (!container) {
+            return [];
+        }
+        const focusable = Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR));
+        return focusable.filter(function(element) {
+            if (!element) {
+                return false;
+            }
+            if (element.hasAttribute('disabled')) {
+                return false;
+            }
+            if (element.getAttribute('aria-hidden') === 'true') {
+                return false;
+            }
+            return true;
+        });
+    }
+
+    function getTopOpenModal() {
+        if (!state.openModals.length) {
+            return null;
+        }
+        return state.openModals[state.openModals.length - 1];
+    }
+
+    function focusModal(modal) {
+        if (!modal) {
+            return;
+        }
+
+        const explicitTarget = modal.querySelector('[data-modal-initial-focus]');
+        const focusable = getFocusableElements(modal);
+        const target = explicitTarget || focusable[0] || modal;
+
+        if (target === modal && !modal.hasAttribute('tabindex')) {
+            modal.setAttribute('tabindex', '-1');
+        }
+
+        if (typeof target.focus === 'function') {
+            target.focus({ preventScroll: true });
+        }
+    }
+
+    function trapFocusInModal(event, modal) {
+        if (!modal || event.key !== 'Tab') {
+            return;
+        }
+
+        const focusable = getFocusableElements(modal);
+        if (focusable.length === 0) {
+            event.preventDefault();
+            modal.focus();
+            return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+
+        if (event.shiftKey) {
+            if (!modal.contains(active) || active === first) {
+                event.preventDefault();
+                last.focus();
+            }
+            return;
+        }
+
+        if (!modal.contains(active) || active === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+
+    function confirmDestructiveAction(message) {
+        if (typeof window.confirm !== 'function') {
+            return true;
+        }
+        return window.confirm(message);
     }
 
     // ======================================================================
@@ -383,16 +474,53 @@
         if (!modal) {
             return;
         }
+
+        if (modal.classList.contains('open')) {
+            focusModal(modal);
+            return;
+        }
+
+        const activeElement = document.activeElement;
+        if (activeElement && typeof activeElement.focus === 'function') {
+            modalFocusOrigin.set(modal, activeElement);
+        } else {
+            modalFocusOrigin.set(modal, null);
+        }
+
+        if (state.openModals.indexOf(modal) === -1) {
+            state.openModals.push(modal);
+        }
+
+        modal.setAttribute('aria-hidden', 'false');
         modal.classList.add('open');
         lockBodyScroll();
+        focusModal(modal);
     }
 
     function closeModal(modal) {
         if (!modal) {
             return;
         }
+
+        const modalIndex = state.openModals.indexOf(modal);
+        if (modalIndex !== -1) {
+            state.openModals.splice(modalIndex, 1);
+        }
+
+        modal.setAttribute('aria-hidden', 'true');
         modal.classList.remove('open');
         unlockBodyScroll();
+
+        const previousFocus = modalFocusOrigin.get(modal);
+        if (previousFocus && document.contains(previousFocus) && typeof previousFocus.focus === 'function') {
+            previousFocus.focus({ preventScroll: true });
+            return;
+        }
+
+        const topModal = getTopOpenModal();
+        if (topModal) {
+            focusModal(topModal);
+        }
     }
 
     // ======================================================================
@@ -577,7 +705,15 @@
         if (!wheel) {
             return;
         }
-        const categories = CONFIG.dateCategories;
+        const categories = Array.isArray(CONFIG.dateCategories) ? CONFIG.dateCategories : [];
+        if (categories.length === 0) {
+            state.selectedCategory = null;
+            updateSelectedCategoryLabel(null);
+            showIdeasPlaceholder('No date categories yet. Add some ideas in config.js.', false);
+            setSpinButtonState('idle');
+            return;
+        }
+
         const segmentAngle = 360 / categories.length;
         const spinId = state.spinToken + 1;
         state.spinToken = spinId;
@@ -593,16 +729,16 @@
         const segmentOffset = randomSegment * segmentAngle + segmentAngle / 2;
 
         const finalRotation = state.currentRotation + (fullRotations * 360) + (360 - segmentOffset);
+        const spinDurationMs = prefersReducedMotion() ? 120 : 4000;
+        const fallbackDelay = spinDurationMs + 200;
+        let didSettle = false;
 
-        function handleSpinEnd(event) {
-            if (event.target !== wheel || event.propertyName !== 'transform') {
+        function settleSpin() {
+            if (didSettle || spinId !== state.spinToken) {
                 return;
             }
 
-            if (spinId !== state.spinToken) {
-                return;
-            }
-
+            didSettle = true;
             wheel.removeEventListener('transitionend', handleSpinEnd);
             state.isSpinning = false;
             wheel.classList.remove('spinning');
@@ -615,9 +751,18 @@
             showDateIdeas(state.selectedCategory);
         }
 
+        function handleSpinEnd(event) {
+            if (event.target !== wheel || event.propertyName !== 'transform') {
+                return;
+            }
+            settleSpin();
+        }
+
         wheel.addEventListener('transitionend', handleSpinEnd);
+        wheel.style.transitionDuration = (spinDurationMs / 1000).toFixed(3) + 's';
         wheel.style.transform = 'rotate(' + finalRotation + 'deg)';
         state.currentRotation = finalRotation;
+        window.setTimeout(settleSpin, fallbackDelay);
     }
 
     // ======================================================================
@@ -666,6 +811,71 @@
         DOM.filtersToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
     }
 
+    function setFilterChipSelection(filterName, selectedValue) {
+        const chips = Array.from(document.querySelectorAll('.filter-chip[data-filter="' + filterName + '"]'));
+        if (chips.length === 0) {
+            return;
+        }
+
+        let hasMatch = false;
+        chips.forEach(function(chip) {
+            const isActive = chip.dataset.value === selectedValue;
+            chip.classList.toggle('active', isActive);
+            if (chip.hasAttribute('aria-pressed')) {
+                chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            }
+            if (isActive) {
+                hasMatch = true;
+            }
+        });
+
+        if (hasMatch) {
+            return;
+        }
+
+        const allChip = chips.find(function(chip) {
+            return chip.dataset.value === 'all';
+        });
+        if (allChip) {
+            allChip.classList.add('active');
+            if (allChip.hasAttribute('aria-pressed')) {
+                allChip.setAttribute('aria-pressed', 'true');
+            }
+        }
+    }
+
+    function activateFilterChip(chip) {
+        const group = chip.closest('.filter-group');
+        if (!group) {
+            return;
+        }
+
+        group.querySelectorAll('.filter-chip').forEach(function(button) {
+            const isActive = button === chip;
+            button.classList.toggle('active', isActive);
+            if (button.hasAttribute('aria-pressed')) {
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            }
+        });
+    }
+
+    function persistCurrentFilters() {
+        if (typeof StorageApi.setFilters === 'function') {
+            StorageApi.setFilters(getCurrentFilters());
+        }
+    }
+
+    function restoreSavedFilters() {
+        if (typeof StorageApi.getFilters !== 'function') {
+            return;
+        }
+
+        const savedFilters = StorageApi.getFilters();
+        ['effort', 'budget', 'season'].forEach(function(filterName) {
+            setFilterChipSelection(filterName, savedFilters[filterName]);
+        });
+    }
+
     function initFilters() {
         if (!DOM.filtersToggle || !DOM.filters) {
             return;
@@ -678,17 +888,8 @@
 
         document.querySelectorAll('.filter-chip').forEach(function(chip) {
             chip.addEventListener('click', function() {
-                const group = chip.closest('.filter-group');
-                group.querySelectorAll('.filter-chip').forEach(function(button) {
-                    button.classList.remove('active');
-                    if (button.hasAttribute('aria-pressed')) {
-                        button.setAttribute('aria-pressed', 'false');
-                    }
-                });
-                chip.classList.add('active');
-                if (chip.hasAttribute('aria-pressed')) {
-                    chip.setAttribute('aria-pressed', 'true');
-                }
+                activateFilterChip(chip);
+                persistCurrentFilters();
 
                 updateFiltersSummary();
 
@@ -699,26 +900,16 @@
             });
         });
 
+        restoreSavedFilters();
         updateFiltersSummary();
     }
 
     function resetFilters() {
-        document.querySelectorAll('.filter-group').forEach(function(group) {
-            group.querySelectorAll('.filter-chip').forEach(function(chip) {
-                chip.classList.remove('active');
-                if (chip.hasAttribute('aria-pressed')) {
-                    chip.setAttribute('aria-pressed', 'false');
-                }
-            });
-            const allChip = group.querySelector('.filter-chip[data-value="all"]');
-            if (allChip) {
-                allChip.classList.add('active');
-                if (allChip.hasAttribute('aria-pressed')) {
-                    allChip.setAttribute('aria-pressed', 'true');
-                }
-            }
+        ['effort', 'budget', 'season'].forEach(function(filterName) {
+            setFilterChipSelection(filterName, 'all');
         });
 
+        persistCurrentFilters();
         updateFiltersSummary();
 
         if (state.selectedCategory) {
@@ -763,7 +954,12 @@
 
     function buildIdeaIndex() {
         const index = {};
-        CONFIG.dateCategories.forEach(function(category) {
+        const categories = Array.isArray(CONFIG.dateCategories) ? CONFIG.dateCategories : [];
+
+        categories.forEach(function(category) {
+            if (!category || !Array.isArray(category.ideas)) {
+                return;
+            }
             category.ideas.forEach(function(idea) {
                 index[idea.id] = {
                     idea: idea,
@@ -776,7 +972,12 @@
 
     function buildIdeaList() {
         const ideas = [];
-        CONFIG.dateCategories.forEach(function(category) {
+        const categories = Array.isArray(CONFIG.dateCategories) ? CONFIG.dateCategories : [];
+
+        categories.forEach(function(category) {
+            if (!category || !Array.isArray(category.ideas)) {
+                return;
+            }
             category.ideas.forEach(function(idea) {
                 ideas.push({
                     idea: idea,
@@ -914,6 +1115,9 @@
                     {
                         label: 'Clear history',
                         onClick: function() {
+                            if (!confirmDestructiveAction('Clear recently picked history?')) {
+                                return;
+                            }
                             StorageApi.clearHistory();
                             renderHistory();
                             showDateIdeas(category);
@@ -1060,6 +1264,9 @@
                 actions.push({
                     label: 'Clear history',
                     onClick: function() {
+                        if (!confirmDestructiveAction('Clear recently picked history?')) {
+                            return;
+                        }
                         StorageApi.clearHistory();
                         renderHistory();
                         updateFiltersSummary();
@@ -1203,6 +1410,9 @@
             return;
         }
         DOM.historyClear.addEventListener('click', function() {
+            if (!confirmDestructiveAction('Clear recently picked history?')) {
+                return;
+            }
             StorageApi.clearHistory();
             renderHistory();
             if (state.selectedCategory) {
@@ -1351,6 +1561,9 @@
             return;
         }
         DOM.favoritesClear.addEventListener('click', function() {
+            if (!confirmDestructiveAction('Clear all saved favorites?')) {
+                return;
+            }
             StorageApi.setFavorites([]);
             renderFavorites();
             if (state.selectedCategory) {
@@ -1511,15 +1724,10 @@
             const button = document.createElement('button');
             button.className = 'note-button' + (readNotes.indexOf(index) !== -1 ? ' read' : '');
 
-            const label = document.createElement('span');
-            label.className = 'note-label';
-            label.textContent = 'Open';
-            button.appendChild(label);
-
-            const triggerText = document.createElement('span');
-            triggerText.className = 'note-trigger-text';
-            triggerText.textContent = note.trigger;
-            button.appendChild(triggerText);
+            const title = document.createElement('span');
+            title.className = 'note-title';
+            title.textContent = 'Open ' + note.trigger;
+            button.appendChild(title);
 
             const indicator = document.createElement('span');
             indicator.className = 'note-read-indicator';
@@ -1537,15 +1745,15 @@
             bonusButton.className = 'note-button bonus-note' + (bonusRead ? ' read' : '') + (isComplete ? '' : ' is-locked');
             bonusButton.disabled = !isComplete;
 
-            const label = document.createElement('span');
-            label.className = 'note-label';
-            label.textContent = 'Bonus';
-            bonusButton.appendChild(label);
+            const chip = document.createElement('span');
+            chip.className = 'note-chip';
+            chip.textContent = 'Bonus';
+            bonusButton.appendChild(chip);
 
-            const triggerText = document.createElement('span');
-            triggerText.className = 'note-trigger-text';
-            triggerText.textContent = isComplete ? CONFIG.bonusLoveNote.trigger : 'Unlock after every note';
-            bonusButton.appendChild(triggerText);
+            const title = document.createElement('span');
+            title.className = 'note-title';
+            title.textContent = isComplete ? 'Open ' + CONFIG.bonusLoveNote.trigger : 'Open when you\'ve opened every note';
+            bonusButton.appendChild(title);
 
             const hint = document.createElement('span');
             hint.className = 'note-hint';
@@ -1653,7 +1861,12 @@
         if (!DOM.notesResetBtn) {
             return;
         }
-        DOM.notesResetBtn.addEventListener('click', resetReadNotes);
+        DOM.notesResetBtn.addEventListener('click', function() {
+            if (!confirmDestructiveAction('Reset all opened notes to unread?')) {
+                return;
+            }
+            resetReadNotes();
+        });
         updateResetButtonVisibility();
     }
 
@@ -1866,16 +2079,28 @@
     function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(event) {
-                event.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
+                const hash = anchor.getAttribute('href');
+                const target = hash ? document.querySelector(hash) : null;
                 if (target) {
+                    if (anchor.classList.contains('skip-link')) {
+                        event.preventDefault();
+                        const skipOffset = target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+                        window.scrollTo({
+                            top: skipOffset,
+                            behavior: 'auto'
+                        });
+                        target.focus({ preventScroll: true });
+                        return;
+                    }
+
+                    event.preventDefault();
                     const headerOffset = getHeaderOffset();
                     const elementPosition = target.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
                     window.scrollTo({
                         top: offsetPosition,
-                        behavior: 'smooth'
+                        behavior: prefersReducedMotion() ? 'auto' : 'smooth'
                     });
                 }
             });
@@ -1884,22 +2109,15 @@
 
     function initGlobalKeybinds() {
         document.addEventListener('keydown', function(event) {
-            if (event.key !== 'Escape') {
+            const activeModal = getTopOpenModal();
+
+            if (event.key === 'Tab' && activeModal) {
+                trapFocusInModal(event, activeModal);
                 return;
             }
 
-            if (DOM.planModal && DOM.planModal.classList.contains('open')) {
-                closePlanView();
-                return;
-            }
-
-            if (DOM.noteModal && DOM.noteModal.classList.contains('open')) {
-                closeNoteModal();
-                return;
-            }
-
-            if (DOM.easterEggModal && DOM.easterEggModal.classList.contains('open')) {
-                closeEasterEgg();
+            if (event.key === 'Escape' && activeModal) {
+                closeModal(activeModal);
             }
         });
     }
