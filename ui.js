@@ -20,7 +20,8 @@
         spinToken: 0,
         notesComplete: false,
         valentineWheelSurpriseShown: false,
-        defaultHeroEyebrowText: null
+        defaultHeroEyebrowText: null,
+        pendingWheelRender: false
     };
 
     const ideaIndex = buildIdeaIndex();
@@ -198,9 +199,7 @@
 
         document.documentElement.setAttribute('data-theme', newTheme);
         StorageApi.setThemePreference(newTheme);
-        if (!state.isSpinning) {
-            renderWheel();
-        }
+        requestWheelRender();
     }
 
     function getWheelColors() {
@@ -322,9 +321,7 @@
         const newState = !isValentineModeEnabled();
         applyValentineTheme(newState);
         StorageApi.setValentineModePreference(newState);
-        if (!state.isSpinning) {
-            renderWheel();
-        }
+        requestWheelRender();
     }
 
     // ======================================================================
@@ -545,6 +542,14 @@
         wheel.appendChild(labelsContainer);
     }
 
+    function requestWheelRender() {
+        if (state.isSpinning) {
+            state.pendingWheelRender = true;
+            return;
+        }
+        renderWheel();
+    }
+
     function updateSelectedCategoryLabel(category) {
         if (!DOM.wheelSelected || !DOM.wheelSelectedName || !DOM.wheelSelectedIcon) {
             return;
@@ -602,6 +607,10 @@
             state.isSpinning = false;
             wheel.classList.remove('spinning');
             state.selectedCategory = categories[randomSegment];
+            if (state.pendingWheelRender) {
+                state.pendingWheelRender = false;
+                renderWheel();
+            }
             setSpinButtonState('after');
             showDateIdeas(state.selectedCategory);
         }
@@ -1905,13 +1914,14 @@
 
         function scheduleRender() {
             if (state.isSpinning) {
+                state.pendingWheelRender = true;
                 return;
             }
             if (resizeTimer) {
                 clearTimeout(resizeTimer);
             }
             resizeTimer = setTimeout(function() {
-                renderWheel();
+                requestWheelRender();
                 resizeTimer = null;
             }, 120);
         }
