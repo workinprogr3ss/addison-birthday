@@ -8,6 +8,7 @@
 
     const STORAGE_KEYS = {
         theme: 'theme',
+        valentineMode: 'valentineMode',
         favorites: 'dateFavorites',
         legacyFavoriteTexts: 'favoriteTexts',
         readNotes: 'readNotes',
@@ -54,6 +55,48 @@
 
     function setThemePreference(theme) {
         safeSetJSON(STORAGE_KEYS.theme, theme);
+    }
+
+    function getValentineModePreference() {
+        const raw = localStorage.getItem(STORAGE_KEYS.valentineMode);
+        if (raw === null) {
+            return false;
+        }
+
+        const normalizedRaw = raw.toLowerCase();
+        if (normalizedRaw === 'true' || normalizedRaw === '"true"' || normalizedRaw === 'on' || normalizedRaw === '"on"') {
+            safeSetJSON(STORAGE_KEYS.valentineMode, true);
+            return true;
+        }
+
+        if (normalizedRaw === 'false' || normalizedRaw === '"false"' || normalizedRaw === 'off' || normalizedRaw === '"off"') {
+            safeSetJSON(STORAGE_KEYS.valentineMode, false);
+            return false;
+        }
+
+        const parsed = safeParseJSON(STORAGE_KEYS.valentineMode, false);
+        if (typeof parsed === 'boolean') {
+            return parsed;
+        }
+
+        if (typeof parsed === 'string') {
+            const normalizedParsed = parsed.toLowerCase();
+            if (normalizedParsed === 'true' || normalizedParsed === 'on') {
+                safeSetJSON(STORAGE_KEYS.valentineMode, true);
+                return true;
+            }
+            if (normalizedParsed === 'false' || normalizedParsed === 'off') {
+                safeSetJSON(STORAGE_KEYS.valentineMode, false);
+                return false;
+            }
+        }
+
+        safeSetJSON(STORAGE_KEYS.valentineMode, false);
+        return false;
+    }
+
+    function setValentineModePreference(enabled) {
+        safeSetJSON(STORAGE_KEYS.valentineMode, Boolean(enabled));
     }
 
     function normalizeArray(value, key) {
@@ -250,6 +293,8 @@
         init: init,
         getThemePreference: getThemePreference,
         setThemePreference: setThemePreference,
+        getValentineModePreference: getValentineModePreference,
+        setValentineModePreference: setValentineModePreference,
         getFavorites: getFavorites,
         setFavorites: setFavorites,
         getReadNotes: getReadNotes,
