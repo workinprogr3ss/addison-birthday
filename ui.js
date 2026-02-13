@@ -18,13 +18,10 @@
         isSpinning: false,
         selectedCategory: null,
         spinToken: 0,
-        notesComplete: false
+        notesComplete: false,
+        valentineWheelSurpriseShown: false,
+        defaultHeroEyebrowText: null
     };
-
-    const wheelColors = [
-        '#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574',
-        '#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574'
-    ];
 
     const ideaIndex = buildIdeaIndex();
     const allIdeas = buildIdeaList();
@@ -73,8 +70,11 @@
         DOM.wheelSelectedName = document.getElementById('wheel-selected-name');
         DOM.wheelSelectedIcon = document.getElementById('wheel-selected-icon');
         DOM.themeToggle = document.getElementById('theme-toggle');
+        DOM.valentineToggle = document.getElementById('valentine-toggle');
+        DOM.heroEyebrow = document.querySelector('.hero-eyebrow');
         DOM.recipientName = document.getElementById('recipient-name');
         DOM.birthdayMessage = document.getElementById('birthday-message');
+        DOM.valentineSurpriseBtn = document.getElementById('valentine-surprise-btn');
         DOM.easterEggTrigger = document.getElementById('easter-egg-trigger');
         DOM.easterEggModal = document.getElementById('easter-egg-modal');
         DOM.easterEggMessage = document.getElementById('easter-egg-message');
@@ -198,6 +198,133 @@
 
         document.documentElement.setAttribute('data-theme', newTheme);
         StorageApi.setThemePreference(newTheme);
+        if (!state.isSpinning) {
+            renderWheel();
+        }
+    }
+
+    function getWheelColors() {
+        const styles = getComputedStyle(document.documentElement);
+        const primary = styles.getPropertyValue('--primary').trim() || '#7c5cbf';
+        const primaryLight = styles.getPropertyValue('--primary-light').trim() || '#a78bdb';
+        const accent = styles.getPropertyValue('--accent').trim() || '#e8b4bc';
+        const accentWarm = styles.getPropertyValue('--accent-warm').trim() || '#d4a574';
+        return [primary, primaryLight, accent, accentWarm, primary, primaryLight, accent, accentWarm];
+    }
+
+    function clampChance(value, fallback) {
+        const numeric = Number(value);
+        if (!Number.isFinite(numeric)) {
+            return fallback;
+        }
+        if (numeric < 0) {
+            return 0;
+        }
+        if (numeric > 1) {
+            return 1;
+        }
+        return numeric;
+    }
+
+    function getValentineConfig() {
+        const defaults = {
+            toggleLabel: 'Valentine mode',
+            heroEyebrowText: 'Happy Valentine\'s Day',
+            heroSurpriseLabel: 'Open a Valentine surprise',
+            surpriseMessages: {
+                heart: 'Happy Valentine\'s Day. Every ordinary day is better with you in it.',
+                hero: 'Surprise: loving you feels steady, honest, and like home. I\'m grateful for us every day.',
+                wheel: 'Bonus draw: this is your reminder that I adore doing life with you.',
+                default: 'Happy Valentine\'s Day. I love you, and I love us.'
+            },
+            wheelSurpriseChance: 0.1
+        };
+
+        const valentineTheme = CONFIG.valentineTheme && typeof CONFIG.valentineTheme === 'object'
+            ? CONFIG.valentineTheme
+            : {};
+        const surpriseMessages = valentineTheme.surpriseMessages && typeof valentineTheme.surpriseMessages === 'object'
+            ? valentineTheme.surpriseMessages
+            : {};
+
+        return {
+            toggleLabel: typeof valentineTheme.toggleLabel === 'string' && valentineTheme.toggleLabel.trim()
+                ? valentineTheme.toggleLabel
+                : defaults.toggleLabel,
+            heroEyebrowText: typeof valentineTheme.heroEyebrowText === 'string' && valentineTheme.heroEyebrowText.trim()
+                ? valentineTheme.heroEyebrowText
+                : defaults.heroEyebrowText,
+            heroSurpriseLabel: typeof valentineTheme.heroSurpriseLabel === 'string' && valentineTheme.heroSurpriseLabel.trim()
+                ? valentineTheme.heroSurpriseLabel
+                : defaults.heroSurpriseLabel,
+            surpriseMessages: {
+                heart: typeof surpriseMessages.heart === 'string' && surpriseMessages.heart.trim()
+                    ? surpriseMessages.heart
+                    : defaults.surpriseMessages.heart,
+                hero: typeof surpriseMessages.hero === 'string' && surpriseMessages.hero.trim()
+                    ? surpriseMessages.hero
+                    : defaults.surpriseMessages.hero,
+                wheel: typeof surpriseMessages.wheel === 'string' && surpriseMessages.wheel.trim()
+                    ? surpriseMessages.wheel
+                    : defaults.surpriseMessages.wheel,
+                default: typeof surpriseMessages.default === 'string' && surpriseMessages.default.trim()
+                    ? surpriseMessages.default
+                    : defaults.surpriseMessages.default
+            },
+            wheelSurpriseChance: clampChance(valentineTheme.wheelSurpriseChance, defaults.wheelSurpriseChance)
+        };
+    }
+
+    function isValentineModeEnabled() {
+        return document.documentElement.getAttribute('data-valentine') === 'on';
+    }
+
+    function applyValentineTheme(enabled) {
+        const isEnabled = Boolean(enabled);
+        const valentineConfig = getValentineConfig();
+
+        if (isEnabled) {
+            document.documentElement.setAttribute('data-valentine', 'on');
+        } else {
+            document.documentElement.removeAttribute('data-valentine');
+        }
+
+        if (DOM.valentineToggle) {
+            DOM.valentineToggle.setAttribute('aria-pressed', isEnabled ? 'true' : 'false');
+            DOM.valentineToggle.setAttribute('aria-label', valentineConfig.toggleLabel);
+            DOM.valentineToggle.setAttribute('title', valentineConfig.toggleLabel);
+            DOM.valentineToggle.classList.toggle('is-active', isEnabled);
+        }
+
+        if (DOM.valentineSurpriseBtn) {
+            DOM.valentineSurpriseBtn.classList.toggle('is-inactive', !isEnabled);
+            DOM.valentineSurpriseBtn.setAttribute('aria-hidden', isEnabled ? 'false' : 'true');
+            DOM.valentineSurpriseBtn.tabIndex = isEnabled ? 0 : -1;
+            DOM.valentineSurpriseBtn.textContent = valentineConfig.heroSurpriseLabel;
+        }
+
+        if (DOM.heroEyebrow) {
+            const fallbackText = state.defaultHeroEyebrowText || 'Happy Birthday';
+            DOM.heroEyebrow.textContent = isEnabled ? valentineConfig.heroEyebrowText : fallbackText;
+        }
+    }
+
+    function initValentineTheme() {
+        const savedPreference = StorageApi.getValentineModePreference();
+        if (!state.defaultHeroEyebrowText && DOM.heroEyebrow) {
+            state.defaultHeroEyebrowText = DOM.heroEyebrow.textContent.trim() || 'Happy Birthday';
+        }
+        applyValentineTheme(savedPreference);
+        state.valentineWheelSurpriseShown = false;
+    }
+
+    function toggleValentineTheme() {
+        const newState = !isValentineModeEnabled();
+        applyValentineTheme(newState);
+        StorageApi.setValentineModePreference(newState);
+        if (!state.isSpinning) {
+            renderWheel();
+        }
     }
 
     // ======================================================================
@@ -366,6 +493,7 @@
         const categories = CONFIG.dateCategories;
         const segmentAngle = 360 / categories.length;
         const labelRadius = Math.max(80, (wheel.offsetWidth / 2) - 50);
+        const wheelColors = getWheelColors();
 
         const gradientStops = categories.map(function(category, index) {
             const startAngle = index * segmentAngle;
@@ -854,6 +982,7 @@
                 }
                 recordHistory(chosenIdea, category);
                 openPlanView(chosenIdea, category);
+                maybeTriggerWheelSurprise();
             });
 
             actions.appendChild(pickBtn);
@@ -941,6 +1070,7 @@
         showDateIdeas(choice.category, { includeId: choice.idea.id, highlightIdeaId: choice.idea.id });
         recordHistory(choice.idea, choice.category);
         openPlanView(choice.idea, choice.category);
+        maybeTriggerWheelSurprise();
     }
 
     function recordHistory(idea, category) {
@@ -1524,14 +1654,16 @@
     // Confetti
     // ======================================================================
 
-    function launchConfetti(container, count) {
+    function launchConfetti(container, count, palette) {
         if (!container) {
             return;
         }
 
         container.textContent = '';
 
-        const colors = ['#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574', '#4a9d6e'];
+        const colors = Array.isArray(palette) && palette.length > 0
+            ? palette
+            : ['#7c5cbf', '#a78bdb', '#e8b4bc', '#d4a574', '#4a9d6e'];
         const fragment = document.createDocumentFragment();
         const total = count || 50;
 
@@ -1562,7 +1694,7 @@
             if (event.code === konamiCode[konamiIndex]) {
                 konamiIndex += 1;
                 if (konamiIndex === konamiCode.length) {
-                    revealEasterEgg();
+                    revealSeasonalSurprise('default');
                     konamiIndex = 0;
                 }
             } else {
@@ -1586,10 +1718,45 @@
             }, 1000);
 
             if (heartClickCount >= 5) {
-                revealEasterEgg();
+                revealSeasonalSurprise('heart');
                 heartClickCount = 0;
             }
         });
+    }
+
+    function revealSeasonalSurprise(source) {
+        if (isValentineModeEnabled()) {
+            revealValentineSurprise(source);
+            return;
+        }
+        revealEasterEgg();
+    }
+
+    function revealValentineSurprise(source) {
+        if (!DOM.easterEggModal || !DOM.easterEggMessage || !DOM.confetti) {
+            return;
+        }
+
+        const valentineConfig = getValentineConfig();
+        const surpriseSource = source || 'default';
+        const selectedMessage = valentineConfig.surpriseMessages[surpriseSource] || valentineConfig.surpriseMessages.default;
+        const valentineColors = ['#d62872', '#ef476f', '#ff8fab', '#ffb3c6', '#ffd6e0'];
+
+        DOM.easterEggMessage.textContent = selectedMessage;
+        openModal(DOM.easterEggModal);
+        launchConfetti(DOM.confetti, 50, valentineColors);
+    }
+
+    function maybeTriggerWheelSurprise() {
+        if (!isValentineModeEnabled() || state.valentineWheelSurpriseShown) {
+            return;
+        }
+
+        const valentineConfig = getValentineConfig();
+        if (Math.random() <= valentineConfig.wheelSurpriseChance) {
+            state.valentineWheelSurpriseShown = true;
+            revealValentineSurprise('wheel');
+        }
     }
 
     function revealEasterEgg() {
@@ -1613,6 +1780,19 @@
 
         DOM.easterEggClose.addEventListener('click', closeEasterEgg);
         DOM.easterEggBackdrop.addEventListener('click', closeEasterEgg);
+    }
+
+    function initValentineSurpriseButton() {
+        if (!DOM.valentineSurpriseBtn) {
+            return;
+        }
+
+        DOM.valentineSurpriseBtn.addEventListener('click', function() {
+            if (!isValentineModeEnabled()) {
+                return;
+            }
+            revealValentineSurprise('hero');
+        });
     }
 
     // ======================================================================
@@ -1740,8 +1920,12 @@
 
         // Theme
         initTheme();
+        initValentineTheme();
         if (DOM.themeToggle) {
             DOM.themeToggle.addEventListener('click', toggleTheme);
+        }
+        if (DOM.valentineToggle) {
+            DOM.valentineToggle.addEventListener('click', toggleValentineTheme);
         }
 
         // Populate content
@@ -1779,6 +1963,7 @@
         initKonamiCode();
         initHeartClick();
         initEasterEggModal();
+        initValentineSurpriseButton();
 
         // Navigation
         initSmoothScroll();

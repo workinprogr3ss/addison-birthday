@@ -24,6 +24,17 @@
             <div class="nav-links">
                 <a href="#dates" class="nav-link">Date Night</a>
                 <a href="#notes" class="nav-link">Love Notes</a>
+                <button
+                    id="valentine-toggle"
+                    class="theme-toggle valentine-toggle"
+                    type="button"
+                    aria-label="Toggle Valentine mode"
+                    aria-pressed="false"
+                >
+                    <svg class="icon-heart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"/>
@@ -45,6 +56,15 @@
             <h1 class="hero-title" id="recipient-name">Addison</h1>
             <p class="hero-message" id="birthday-message"></p>
             <a href="#dates" class="hero-cta">Explore Your Surprises</a>
+            <button
+                id="valentine-surprise-btn"
+                class="hero-secondary-cta valentine-surprise-btn is-inactive"
+                type="button"
+                aria-hidden="true"
+                tabindex="-1"
+            >
+                Open a Valentine surprise
+            </button>
         </div>
     </section>
 

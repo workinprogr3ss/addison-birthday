@@ -223,6 +223,22 @@ window.CONFIG = {
     },
 
     // -------------------------------------------------------------------------
+    // Valentine Theme - Optional seasonal overlay + surprise messages
+    // -------------------------------------------------------------------------
+    valentineTheme: {
+        toggleLabel: "Valentine mode",
+        heroEyebrowText: "Happy Valentine's Day",
+        heroSurpriseLabel: "Open a Valentine surprise",
+        surpriseMessages: {
+            heart: "Happy Valentine's Day. Every ordinary day is better with you in it.",
+            hero: "Surprise: loving you feels steady, honest, and like home. I'm grateful for us every day.",
+            wheel: "Bonus draw: this is your reminder that I adore doing life with you.",
+            default: "Happy Valentine's Day. I love you, and I love us."
+        },
+        wheelSurpriseChance: 0.1
+    },
+
+    // -------------------------------------------------------------------------
     // Easter Egg - Secret message revealed by Konami code or heart clicks
     // -------------------------------------------------------------------------
     easterEggMessage: "You found it! Here's the truth: you make everything better. The regular stuff, the hard stuff, all of it. Thanks for being you, and for choosing me. Here's to many more adventures together."
