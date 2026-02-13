@@ -7,6 +7,17 @@ A romantic birthday website featuring an interactive date night wheel and heartf
 1. Open `index.html` in your browser - it works directly from the file system
 2. Or host on GitHub Pages, Netlify, or any static hosting
 
+## Smoke Tests
+
+Open `smoke-tests.html` in a browser and click **Run smoke tests**.
+
+It runs a small browser suite for:
+- Wheel spin and selection rendering
+- Plan modal open/close flow
+- Note modal open/close flow
+- Theme storage persistence
+- Filter persistence and reload restoration
+
 ## Customization Guide
 
 All content is in the `CONFIG` object at the top of `config.js`. The site comes pre-filled with heartfelt messages - you can use them as-is or personalize them further to make them your own.

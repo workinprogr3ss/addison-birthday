@@ -133,9 +133,9 @@
                     <button class="filter-chip" data-filter="season" data-value="winter" aria-pressed="false">Winter</button>
                 </div>
                 <div class="filter-group filter-group-toggle">
-                    <span class="filter-label">Avoid repeats:</span>
+                    <span class="filter-label" id="avoid-repeats-label">Avoid repeats:</span>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="avoid-repeats-toggle">
+                        <input type="checkbox" id="avoid-repeats-toggle" aria-labelledby="avoid-repeats-label">
                         <span class="toggle-track"></span>
                         <span class="toggle-thumb"></span>
                     </label>
@@ -186,10 +186,10 @@
             <div class="notes-confetti" id="notes-confetti" aria-hidden="true"></div>
 
             <!-- Note Modal -->
-            <div class="note-modal" id="note-modal" role="dialog" aria-modal="true" aria-labelledby="modal-trigger">
+            <div class="note-modal" id="note-modal" role="dialog" aria-modal="true" aria-labelledby="modal-trigger" aria-hidden="true">
                 <div class="note-modal-backdrop"></div>
                 <div class="note-card">
-                    <button class="note-close" aria-label="Close note">&times;</button>
+                    <button class="note-close" data-modal-initial-focus aria-label="Close note">&times;</button>
                     <p class="note-trigger" id="modal-trigger"></p>
                     <div class="note-divider"></div>
                     <p class="note-message" id="modal-message"></p>
@@ -210,20 +210,20 @@
     </footer>
 
     <!-- Easter Egg Modal -->
-    <div class="easter-egg-modal" id="easter-egg-modal" role="dialog" aria-modal="true" aria-labelledby="easter-egg-message">
+    <div class="easter-egg-modal" id="easter-egg-modal" role="dialog" aria-modal="true" aria-labelledby="easter-egg-message" aria-hidden="true">
         <div class="easter-egg-backdrop"></div>
         <div class="easter-egg-content">
             <div class="confetti-container" id="confetti"></div>
             <p class="easter-egg-message" id="easter-egg-message"></p>
-            <button class="easter-egg-close">Close</button>
+            <button class="easter-egg-close" data-modal-initial-focus>Close</button>
         </div>
     </div>
 
     <!-- Plan Modal -->
-    <div class="plan-modal" id="plan-modal">
+    <div class="plan-modal" id="plan-modal" role="dialog" aria-modal="true" aria-labelledby="plan-title" aria-hidden="true">
         <div class="plan-modal-backdrop"></div>
         <div class="plan-modal-content">
-            <button class="plan-modal-close" aria-label="Close plan">&times;</button>
+            <button class="plan-modal-close" data-modal-initial-focus aria-label="Close plan">&times;</button>
             <div class="plan-modal-header">
                 <div class="plan-icon-wrapper" id="plan-icon"></div>
                 <div class="plan-header-text">

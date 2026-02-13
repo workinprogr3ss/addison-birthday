@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Site Smoke Tests</title>
+    <style>
+        :root {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #1a1425;
+            background: #f5f1fb;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .card {
+            max-width: 56rem;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(26, 20, 37, 0.12);
+            box-shadow: 0 8px 24px rgba(26, 20, 37, 0.1);
+            padding: 1.5rem;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin: 0.5rem 0 1rem;
+            color: #4f4560;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            border: 0;
+            border-radius: 999px;
+            background: #6f56b5;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        #status {
+            font-size: 0.95rem;
+            color: #4f4560;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        li {
+            margin: 0.35rem 0;
+            line-height: 1.4;
+        }
+
+        .pass {
+            color: #1b7f3f;
+        }
+
+        .fail {
+            color: #b42318;
+        }
+
+        iframe {
+            width: 0;
+            height: 0;
+            border: 0;
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Smoke Tests</h1>
+        <p>Runs a minimal browser smoke suite against <code>index.html</code> (spin, modals, filter persistence, storage).</p>
+        <div class="actions">
+            <button id="run-tests" type="button">Run smoke tests</button>
+            <span id="status">Idle</span>
+        </div>
+        <ul id="results"></ul>
+    </main>
+
+    <iframe id="app-frame" title="App under test"></iframe>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const STORAGE_KEYS = [
+                'theme',
+                'valentineMode',
+                'dateFavorites',
+                'favoriteTexts',
+                'readNotes',
+                'bonusNoteRead',
+                'dateHistory',
+                'avoidRepeats',
+                'dateChecklist',
+                'dateFilters'
+            ];
+
+            const runButton = document.getElementById('run-tests');
+            const status = document.getElementById('status');
+            const results = document.getElementById('results');
+            const frame = document.getElementById('app-frame');
+
+            function wait(ms) {
+                return new Promise(function(resolve) {
+                    window.setTimeout(resolve, ms);
+                });
+            }
+
+            function resetOutput() {
+                results.textContent = '';
+            }
+
+            function addResult(name, passed, detail) {
+                const item = document.createElement('li');
+                item.className = passed ? 'pass' : 'fail';
+                item.textContent = (passed ? 'PASS: ' : 'FAIL: ') + name + (detail ? ' - ' + detail : '');
+                results.appendChild(item);
+            }
+
+            function parseJSON(raw) {
+                try {
+                    return JSON.parse(raw);
+                } catch (error) {
+                    return null;
+                }
+            }
+
+            function loadApp() {
+                return new Promise(function(resolve, reject) {
+                    const timeoutId = window.setTimeout(function() {
+                        reject(new Error('Timed out loading index.html'));
+                    }, 8000);
+
+                    frame.onload = function() {
+                        window.clearTimeout(timeoutId);
+                        const appWindow = frame.contentWindow;
+                        const appDoc = appWindow ? appWindow.document : null;
+                        if (!appWindow || !appDoc) {
+                            reject(new Error('Unable to access app frame'));
+                            return;
+                        }
+                        resolve({ win: appWindow, doc: appDoc });
+                    };
+
+                    frame.src = 'index.html?smoke=' + Date.now();
+                });
+            }
+
+            function clearStorage(appWindow) {
+                STORAGE_KEYS.forEach(function(key) {
+                    try {
+                        appWindow.localStorage.removeItem(key);
+                    } catch (error) {
+                        // Ignore inaccessible storage environments.
+                    }
+                });
+            }
+
+            async function runSuite() {
+                runButton.disabled = true;
+                status.textContent = 'Running...';
+                resetOutput();
+
+                try {
+                    let env = await loadApp();
+                    clearStorage(env.win);
+                    env = await loadApp();
+
+                    const doc = env.doc;
+                    const win = env.win;
+
+                    const spinBtn = doc.getElementById('spin-btn');
+                    if (!spinBtn) {
+                        throw new Error('Spin button was not found');
+                    }
+                    spinBtn.click();
+                    await wait(4600);
+
+                    const selected = doc.getElementById('wheel-selected');
+                    const hasSelection = Boolean(selected && selected.classList.contains('is-visible'));
+                    addResult('Wheel spin renders a selected category', hasSelection);
+
+                    const planTrigger = doc.getElementById('global-pick-btn');
+                    const planModal = doc.getElementById('plan-modal');
+                    if (!planTrigger || !planModal) {
+                        throw new Error('Plan modal controls were not found');
+                    }
+                    planTrigger.click();
+                    await wait(150);
+                    addResult('Plan modal opens from global pick', planModal.classList.contains('open'));
+
+                    const planClose = planModal.querySelector('.plan-modal-close');
+                    if (!planClose) {
+                        throw new Error('Plan close button was not found');
+                    }
+                    planClose.click();
+                    await wait(150);
+                    addResult('Plan modal closes from close button', !planModal.classList.contains('open'));
+
+                    const firstNote = doc.querySelector('.note-button');
+                    const noteModal = doc.getElementById('note-modal');
+                    if (!firstNote || !noteModal) {
+                        throw new Error('Note controls were not found');
+                    }
+                    firstNote.click();
+                    await wait(120);
+                    addResult('Note modal opens from note button', noteModal.classList.contains('open'));
+
+                    const noteClose = noteModal.querySelector('.note-close');
+                    if (!noteClose) {
+                        throw new Error('Note close button was not found');
+                    }
+                    noteClose.click();
+                    await wait(120);
+                    addResult('Note modal closes from close button', !noteModal.classList.contains('open'));
+
+                    const themeToggle = doc.getElementById('theme-toggle');
+                    if (!themeToggle) {
+                        throw new Error('Theme toggle was not found');
+                    }
+                    themeToggle.click();
+                    await wait(80);
+                    const themeRaw = win.localStorage.getItem('theme');
+                    const themeValue = parseJSON(themeRaw);
+                    addResult('Theme preference writes to storage', themeValue === 'light' || themeValue === 'dark');
+
+                    const mediumEffortChip = doc.querySelector('.filter-chip[data-filter="effort"][data-value="medium"]');
+                    if (!mediumEffortChip) {
+                        throw new Error('Effort filter chip was not found');
+                    }
+                    mediumEffortChip.click();
+                    await wait(80);
+
+                    const filtersRaw = win.localStorage.getItem('dateFilters');
+                    const filters = parseJSON(filtersRaw);
+                    addResult('Filter state persists to storage', Boolean(filters && filters.effort === 'medium'));
+
+                    const reloaded = await loadApp();
+                    const restoredChip = reloaded.doc.querySelector('.filter-chip[data-filter="effort"][data-value="medium"]');
+                    addResult('Persisted filter restores on reload', Boolean(restoredChip && restoredChip.classList.contains('active')));
+
+                    const hasFailures = results.querySelectorAll('.fail').length > 0;
+                    status.textContent = hasFailures ? 'Completed with failures' : 'All smoke tests passed';
+                } catch (error) {
+                    addResult('Smoke suite execution', false, error.message);
+                    status.textContent = 'Failed to run suite';
+                } finally {
+                    runButton.disabled = false;
+                }
+            }
+
+            runButton.addEventListener('click', function() {
+                runSuite();
+            });
+        })();
+    </script>
+</body>
+</html>
