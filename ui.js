@@ -490,9 +490,21 @@
         if (!wheel) {
             return;
         }
+
         const categories = CONFIG.dateCategories;
+        if (!Array.isArray(categories) || categories.length === 0) {
+            wheel.textContent = '';
+            return;
+        }
+
         const segmentAngle = 360 / categories.length;
-        const labelRadius = Math.max(80, (wheel.offsetWidth / 2) - 50);
+        const wheelRadius = wheel.offsetWidth / 2;
+        const centerButtonRadius = DOM.spinBtn ? (DOM.spinBtn.offsetWidth / 2) : Math.max(34, wheelRadius * 0.24);
+        const innerSafeRadius = Math.max(centerButtonRadius + 10, wheelRadius * 0.32);
+        const outerSafeRadius = wheelRadius - Math.max(10, wheelRadius * 0.06);
+        const labelStartRadius = innerSafeRadius + 4;
+        const labelWidth = Math.max(64, outerSafeRadius - labelStartRadius);
+        const baseLabelFontSize = Math.max(9.5, Math.min(12.5, wheel.offsetWidth * 0.038));
         const wheelColors = getWheelColors();
 
         const gradientStops = categories.map(function(category, index) {
@@ -512,15 +524,20 @@
             const angleDeg = (index * segmentAngle) + (segmentAngle / 2) - 90;
             const angleRad = angleDeg * (Math.PI / 180);
 
-            const x = Math.cos(angleRad) * labelRadius;
-            const y = Math.sin(angleRad) * labelRadius;
+            const x = Math.cos(angleRad) * labelStartRadius;
+            const y = Math.sin(angleRad) * labelStartRadius;
 
             const text = document.createElement('span');
             text.className = 'wheel-segment-text';
             text.textContent = category.name;
 
-            const rotation = angleDeg + 90;
-            text.style.transform = 'translate(-50%, -50%) translate(' + x + 'px, ' + y + 'px) rotate(' + rotation + 'deg)';
+            const charCount = Math.max(category.name.length, 1);
+            const fittedFontSize = labelWidth / (charCount * 0.56);
+            const labelFontSize = Math.max(8.6, Math.min(baseLabelFontSize, fittedFontSize));
+
+            text.style.width = labelWidth.toFixed(1) + 'px';
+            text.style.fontSize = labelFontSize.toFixed(1) + 'px';
+            text.style.transform = 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px) rotate(' + angleDeg.toFixed(1) + 'deg) translateY(-50%)';
 
             labelsContainer.appendChild(text);
         });
