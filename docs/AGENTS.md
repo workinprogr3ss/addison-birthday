@@ -3,11 +3,11 @@
 ## Project Structure & Module Organization
 
 - `index.html` holds the page structure, SVG wheel, and modal markup.
-- `styles.css` contains all styling, themes, and animations (including dark mode).
-- `config.js` contains the `CONFIG` object that drives all content and labels.
-- `storage.js` owns localStorage parsing, migrations, and persistence helpers.
-- `ui.js` handles DOM rendering, wheel logic, modals, and event wiring.
-- `message-archive.md` keeps the original drafted content for reference.
+- `css/styles.css` contains all styling, themes, and animations (including dark mode).
+- `js/config.js` contains the `CONFIG` object that drives all content and labels.
+- `js/storage.js` owns localStorage parsing, migrations, and persistence helpers.
+- `js/ui-*.js` files handle DOM rendering, wheel logic, modals, and event wiring.
+- `docs/message-archive.md` keeps the original drafted content for reference.
 - `README.md` and `CLAUDE.md` document customization and architecture details.
 
 ## Build, Test, and Development Commands
@@ -23,7 +23,7 @@ This is a static site with no build step or dependencies.
 - Indentation: 4 spaces in HTML, CSS, and JS.
 - JavaScript: `const`/`let`, camelCase identifiers, and readable inline object literals.
 - CSS: kebab-case class names, CSS custom properties in `:root` for theme tokens.
-- Keep content edits inside the `CONFIG` object in `config.js` whenever possible.
+- Keep content edits inside the `CONFIG` object in `js/config.js` whenever possible.
 
 ## Testing Guidelines
 
@@ -43,5 +43,5 @@ There are no automated tests. Do a quick manual pass after changes:
 
 ## Configuration & Data Notes
 
-- No secrets or API keys are used; content is embedded in `config.js`.
+- No secrets or API keys are used; content is embedded in `js/config.js`.
 - User state (favorites, read notes, theme) is stored in `localStorage`.

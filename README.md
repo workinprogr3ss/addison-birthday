@@ -9,7 +9,7 @@ A romantic birthday website featuring an interactive date night wheel and heartf
 
 ## Smoke Tests
 
-Open `smoke-tests.html` in a browser and click **Run smoke tests**.
+Open `tests/smoke-tests.html` in a browser and click **Run smoke tests**.
 
 It runs a small browser suite for:
 - Wheel spin and selection rendering
@@ -20,7 +20,7 @@ It runs a small browser suite for:
 
 ## Customization Guide
 
-All content is in the `CONFIG` object at the top of `config.js`. The site comes pre-filled with heartfelt messages - you can use them as-is or personalize them further to make them your own.
+All content is in the `CONFIG` object at the top of `js/config.js`. The site comes pre-filled with heartfelt messages - you can use them as-is or personalize them further to make them your own.
 
 **Note:** The birthday message, love notes, and date ideas are all written generically enough to work as-is, but they'll be even more meaningful if you add specific memories, inside jokes, and personal details unique to your relationship.
 
@@ -134,7 +134,7 @@ easterEggMessage: "[Your secret message here]"
 
 ## Color Customization
 
-To change the color palette, edit the CSS custom properties in `styles.css`:
+To change the color palette, edit the CSS custom properties in `css/styles.css`:
 
 ```css
 :root {
@@ -162,12 +162,31 @@ Favorites and date history are stored in `localStorage`. On first load, any lega
 
 ```
 addison-birthday/
-├── index.html    # Page structure
-├── styles.css    # All styling
-├── config.js     # CONFIG object + content
-├── storage.js    # localStorage helpers + migrations
-├── ui.js         # UI rendering + interactions
-└── README.md     # This file
+├── css/
+│   └── styles.css          # All styling
+├── js/
+│   ├── config.js           # CONFIG object + content
+│   ├── storage.js          # localStorage helpers + migrations
+│   ├── ui-core.js          # UI namespace, modals, DOM cache
+│   ├── ui-theme.js         # Theme toggle, valentine overlay
+│   ├── ui-wheel.js         # Wheel render, spin, particles
+│   ├── ui-filters.js       # Effort/budget/season filters
+│   ├── ui-ideas.js         # Ideas panel, history, global pick
+│   ├── ui-favorites.js     # Favorites list
+│   ├── ui-plan.js          # Plan modal, checklist
+│   ├── ui-notes.js         # Love notes grid, progress
+│   ├── ui-effects.js       # Confetti, easter egg, Konami
+│   └── ui-init.js          # DOMContentLoaded wiring
+├── docs/
+│   ├── AGENTS.md           # Repository guidelines
+│   └── message-archive.md  # Original drafted content
+├── tests/
+│   └── smoke-tests.html    # Browser smoke tests
+├── index.html              # Entry point
+├── sw.js                   # Service worker (PWA)
+├── manifest.json           # PWA manifest
+├── CLAUDE.md               # Claude Code instructions
+└── README.md               # This file
 ```
 
 ## Browser Support
