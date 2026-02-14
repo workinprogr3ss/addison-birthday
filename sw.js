@@ -1,21 +1,21 @@
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const CACHE_NAME = "addison-birthday-" + CACHE_VERSION;
 
 const ASSETS = [
   "./index.html",
-  "./styles.css",
-  "./config.js",
-  "./storage.js",
-  "./ui-core.js",
-  "./ui-theme.js",
-  "./ui-wheel.js",
-  "./ui-filters.js",
-  "./ui-ideas.js",
-  "./ui-favorites.js",
-  "./ui-plan.js",
-  "./ui-notes.js",
-  "./ui-effects.js",
-  "./ui-init.js",
+  "./css/styles.css",
+  "./js/config.js",
+  "./js/storage.js",
+  "./js/ui-core.js",
+  "./js/ui-theme.js",
+  "./js/ui-wheel.js",
+  "./js/ui-filters.js",
+  "./js/ui-ideas.js",
+  "./js/ui-favorites.js",
+  "./js/ui-plan.js",
+  "./js/ui-notes.js",
+  "./js/ui-effects.js",
+  "./js/ui-init.js",
   "./manifest.json",
 ];
 
