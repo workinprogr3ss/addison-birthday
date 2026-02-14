@@ -1,16 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Happy Birthday, Addison</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#7c5cbf" />
+  </head>
+  <body>
     <!-- Skip to main content link for keyboard users -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -19,230 +27,473 @@
 
     <!-- Navigation -->
     <header class="header">
-        <nav class="nav">
-            <a href="#hero" class="nav-logo">For Addison</a>
-            <div class="nav-links">
-                <a href="#dates" class="nav-link">Date Night</a>
-                <a href="#notes" class="nav-link">Love Notes</a>
-                <button
-                    id="valentine-toggle"
-                    class="theme-toggle valentine-toggle"
-                    type="button"
-                    aria-label="Toggle Valentine mode"
-                    aria-pressed="false"
-                >
-                    <svg class="icon-heart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                </button>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                </button>
-            </div>
-        </nav>
+      <nav class="nav">
+        <a href="#hero" class="nav-logo">For Addison</a>
+        <div class="nav-links">
+          <a href="#dates" class="nav-link">Date Night</a>
+          <a href="#notes" class="nav-link">Love Notes</a>
+          <button
+            id="valentine-toggle"
+            class="theme-toggle valentine-toggle"
+            type="button"
+            aria-label="Toggle Valentine mode"
+            aria-pressed="false"
+          >
+            <svg
+              class="icon-heart"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              />
+            </svg>
+          </button>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <svg
+              class="icon-sun"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
+            </svg>
+            <svg
+              class="icon-moon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
     </header>
 
     <main id="main-content" tabindex="-1">
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
+      <!-- Hero Section -->
+      <section id="hero" class="hero">
         <div class="hero-content">
-            <p class="hero-eyebrow">Happy Birthday</p>
-            <h1 class="hero-title" id="recipient-name">Addison</h1>
-            <p class="hero-message" id="birthday-message"></p>
-            <a href="#dates" class="hero-cta">Explore Your Surprises</a>
-            <button
-                id="valentine-surprise-btn"
-                class="hero-secondary-cta valentine-surprise-btn is-inactive"
-                type="button"
-                aria-hidden="true"
-                tabindex="-1"
-            >
-                Open a Valentine surprise
+          <p class="hero-eyebrow">Happy Birthday</p>
+          <h1 class="hero-title" id="recipient-name">Addison</h1>
+          <p class="hero-message" id="birthday-message"></p>
+          <a href="#dates" class="hero-cta">Explore Your Surprises</a>
+          <button
+            id="valentine-surprise-btn"
+            class="hero-secondary-cta valentine-surprise-btn is-inactive"
+            type="button"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            Open a Valentine surprise
+          </button>
+        </div>
+      </section>
+
+      <!-- Date Night Roulette Section -->
+      <section id="dates" class="section dates-section">
+        <div class="container">
+          <h2 class="section-title">Date Night Roulette</h2>
+          <p class="section-subtitle">
+            Spin the wheel and discover your next adventure together
+          </p>
+
+          <div class="date-actions">
+            <button class="global-pick-button" id="global-pick-btn">
+              Pick a date for us
             </button>
-        </div>
-    </section>
+          </div>
 
-    <!-- Date Night Roulette Section -->
-    <section id="dates" class="section dates-section">
+          <div class="roulette-container">
+            <div class="wheel-wrapper">
+              <div class="wheel-stage">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="wheel">
+                  <!-- Wheel segments rendered by JS -->
+                </div>
+                <button class="spin-button" id="spin-btn">Spin</button>
+              </div>
+              <div class="wheel-selected" id="wheel-selected">
+                <span class="wheel-selected-label">Selected category</span>
+                <div class="wheel-selected-value">
+                  <div
+                    class="wheel-selected-icon-wrapper"
+                    id="wheel-selected-icon"
+                  ></div>
+                  <span
+                    class="wheel-selected-name"
+                    id="wheel-selected-name"
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="ideas-panel"
+              id="ideas-panel"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <div class="ideas-placeholder">
+                <p>Spin the wheel to reveal date ideas</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filters-header">
+            <button
+              class="filters-toggle"
+              id="filters-toggle"
+              aria-expanded="false"
+            >
+              Filters
+            </button>
+            <span class="filters-summary" id="filters-summary"></span>
+          </div>
+          <div
+            class="filters is-collapsed"
+            id="filters"
+            role="group"
+            aria-label="Filter date ideas"
+          >
+            <div
+              class="filter-group"
+              role="group"
+              aria-label="Filter by effort"
+            >
+              <span class="filter-label" id="effort-label">Effort:</span>
+              <button
+                class="filter-chip active"
+                data-filter="effort"
+                data-value="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="effort"
+                data-value="low"
+                aria-pressed="false"
+              >
+                Low
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="effort"
+                data-value="medium"
+                aria-pressed="false"
+              >
+                Medium
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="effort"
+                data-value="high"
+                aria-pressed="false"
+              >
+                High
+              </button>
+            </div>
+            <div
+              class="filter-group"
+              role="group"
+              aria-label="Filter by budget"
+            >
+              <span class="filter-label" id="budget-label">Budget:</span>
+              <button
+                class="filter-chip active"
+                data-filter="budget"
+                data-value="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="budget"
+                data-value="free"
+                aria-pressed="false"
+              >
+                Free
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="budget"
+                data-value="$"
+                aria-pressed="false"
+              >
+                $
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="budget"
+                data-value="$$"
+                aria-pressed="false"
+              >
+                $$
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="budget"
+                data-value="$$$"
+                aria-pressed="false"
+              >
+                $$$
+              </button>
+            </div>
+            <div
+              class="filter-group"
+              role="group"
+              aria-label="Filter by season"
+            >
+              <span class="filter-label" id="season-label">Season:</span>
+              <button
+                class="filter-chip active"
+                data-filter="season"
+                data-value="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="season"
+                data-value="spring"
+                aria-pressed="false"
+              >
+                Spring
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="season"
+                data-value="summer"
+                aria-pressed="false"
+              >
+                Summer
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="season"
+                data-value="fall"
+                aria-pressed="false"
+              >
+                Fall
+              </button>
+              <button
+                class="filter-chip"
+                data-filter="season"
+                data-value="winter"
+                aria-pressed="false"
+              >
+                Winter
+              </button>
+            </div>
+            <div class="filter-group filter-group-toggle">
+              <span class="filter-label">Avoid repeats:</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="avoid-repeats-toggle" />
+                <span class="toggle-track"></span>
+                <span class="toggle-thumb"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Favorites Section -->
+          <div class="favorites-section" id="favorites-section">
+            <h3 class="favorites-title">Saved Favorites</h3>
+            <div class="favorites-list" id="favorites-list">
+              <!-- Favorites rendered by JS -->
+            </div>
+            <div class="favorites-actions">
+              <button class="favorites-clear" id="favorites-clear">
+                Clear favorites
+              </button>
+            </div>
+          </div>
+
+          <!-- History Section -->
+          <div class="history-section" id="history-section">
+            <h3 class="favorites-title">Recently Picked</h3>
+            <div class="history-list" id="history-list">
+              <!-- History rendered by JS -->
+            </div>
+            <div class="history-actions">
+              <button class="history-clear" id="history-clear">
+                Clear history
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Love Notes Section -->
+      <section id="notes" class="section notes-section">
         <div class="container">
-            <h2 class="section-title">Date Night Roulette</h2>
-            <p class="section-subtitle">Spin the wheel and discover your next adventure together</p>
+          <h2 class="section-title">Love Notes</h2>
+          <p class="section-subtitle">
+            Open when you need a little reminder of how much you mean to me
+          </p>
+          <div class="notes-progress" id="notes-progress">
+            <span class="notes-progress-text" id="notes-progress-text"
+              >0/0 opened</span
+            >
+          </div>
 
-            <div class="date-actions">
-                <button class="global-pick-button" id="global-pick-btn">Pick a date for us</button>
-            </div>
+          <div class="notes-grid" id="notes-grid">
+            <!-- Notes rendered by JS -->
+          </div>
 
-            <div class="roulette-container">
-                <div class="wheel-wrapper">
-                    <div class="wheel-stage">
-                        <div class="wheel-pointer"></div>
-                        <div class="wheel" id="wheel">
-                            <!-- Wheel segments rendered by JS -->
-                        </div>
-                        <button class="spin-button" id="spin-btn">Spin</button>
-                    </div>
-                    <div class="wheel-selected" id="wheel-selected">
-                        <span class="wheel-selected-label">Selected category</span>
-                        <div class="wheel-selected-value">
-                            <div class="wheel-selected-icon-wrapper" id="wheel-selected-icon"></div>
-                            <span class="wheel-selected-name" id="wheel-selected-name"></span>
-                        </div>
-                    </div>
-                </div>
+          <div class="notes-reset-container" id="notes-reset-container">
+            <button class="notes-reset-btn" id="notes-reset-btn">
+              Reset all notes to unread
+            </button>
+          </div>
 
-                <div class="ideas-panel" id="ideas-panel" aria-live="polite" aria-atomic="true">
-                    <div class="ideas-placeholder">
-                        <p>Spin the wheel to reveal date ideas</p>
-                    </div>
-                </div>
-            </div>
+          <div
+            class="notes-confetti"
+            id="notes-confetti"
+            aria-hidden="true"
+          ></div>
 
-            <!-- Filters -->
-            <div class="filters-header">
-                <button class="filters-toggle" id="filters-toggle" aria-expanded="false">Filters</button>
-                <span class="filters-summary" id="filters-summary"></span>
+          <!-- Note Modal -->
+          <div
+            class="note-modal"
+            id="note-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-trigger"
+            aria-hidden="true"
+          >
+            <div class="note-modal-backdrop"></div>
+            <div class="note-card">
+              <button
+                class="note-close"
+                data-modal-initial-focus
+                aria-label="Close note"
+              >
+                &times;
+              </button>
+              <p class="note-trigger" id="modal-trigger"></p>
+              <div class="note-divider"></div>
+              <p class="note-message" id="modal-message"></p>
             </div>
-            <div class="filters is-collapsed" id="filters" role="group" aria-label="Filter date ideas">
-                <div class="filter-group" role="group" aria-label="Filter by effort">
-                    <span class="filter-label" id="effort-label">Effort:</span>
-                    <button class="filter-chip active" data-filter="effort" data-value="all" aria-pressed="true">All</button>
-                    <button class="filter-chip" data-filter="effort" data-value="low" aria-pressed="false">Low</button>
-                    <button class="filter-chip" data-filter="effort" data-value="medium" aria-pressed="false">Medium</button>
-                    <button class="filter-chip" data-filter="effort" data-value="high" aria-pressed="false">High</button>
-                </div>
-                <div class="filter-group" role="group" aria-label="Filter by budget">
-                    <span class="filter-label" id="budget-label">Budget:</span>
-                    <button class="filter-chip active" data-filter="budget" data-value="all" aria-pressed="true">All</button>
-                    <button class="filter-chip" data-filter="budget" data-value="free" aria-pressed="false">Free</button>
-                    <button class="filter-chip" data-filter="budget" data-value="$" aria-pressed="false">$</button>
-                    <button class="filter-chip" data-filter="budget" data-value="$$" aria-pressed="false">$$</button>
-                    <button class="filter-chip" data-filter="budget" data-value="$$$" aria-pressed="false">$$$</button>
-                </div>
-                <div class="filter-group" role="group" aria-label="Filter by season">
-                    <span class="filter-label" id="season-label">Season:</span>
-                    <button class="filter-chip active" data-filter="season" data-value="all" aria-pressed="true">All</button>
-                    <button class="filter-chip" data-filter="season" data-value="spring" aria-pressed="false">Spring</button>
-                    <button class="filter-chip" data-filter="season" data-value="summer" aria-pressed="false">Summer</button>
-                    <button class="filter-chip" data-filter="season" data-value="fall" aria-pressed="false">Fall</button>
-                    <button class="filter-chip" data-filter="season" data-value="winter" aria-pressed="false">Winter</button>
-                </div>
-                <div class="filter-group filter-group-toggle">
-                    <span class="filter-label" id="avoid-repeats-label">Avoid repeats:</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="avoid-repeats-toggle" aria-labelledby="avoid-repeats-label">
-                        <span class="toggle-track"></span>
-                        <span class="toggle-thumb"></span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Favorites Section -->
-            <div class="favorites-section" id="favorites-section">
-                <h3 class="favorites-title">Saved Favorites</h3>
-                <div class="favorites-list" id="favorites-list">
-                    <!-- Favorites rendered by JS -->
-                </div>
-                <div class="favorites-actions">
-                    <button class="favorites-clear" id="favorites-clear">Clear favorites</button>
-                </div>
-            </div>
-
-            <!-- History Section -->
-            <div class="history-section" id="history-section">
-                <h3 class="favorites-title">Recently Picked</h3>
-                <div class="history-list" id="history-list">
-                    <!-- History rendered by JS -->
-                </div>
-                <div class="history-actions">
-                    <button class="history-clear" id="history-clear">Clear history</button>
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Love Notes Section -->
-    <section id="notes" class="section notes-section">
-        <div class="container">
-            <h2 class="section-title">Love Notes</h2>
-            <p class="section-subtitle">Open when you need a little reminder of how much you mean to me</p>
-            <div class="notes-progress" id="notes-progress">
-                <span class="notes-progress-text" id="notes-progress-text">0/0 opened</span>
-            </div>
-
-            <div class="notes-grid" id="notes-grid">
-                <!-- Notes rendered by JS -->
-            </div>
-
-            <div class="notes-reset-container" id="notes-reset-container">
-                <button class="notes-reset-btn" id="notes-reset-btn">Reset all notes to unread</button>
-            </div>
-
-            <div class="notes-confetti" id="notes-confetti" aria-hidden="true"></div>
-
-            <!-- Note Modal -->
-            <div class="note-modal" id="note-modal" role="dialog" aria-modal="true" aria-labelledby="modal-trigger" aria-hidden="true">
-                <div class="note-modal-backdrop"></div>
-                <div class="note-card">
-                    <button class="note-close" data-modal-initial-focus aria-label="Close note">&times;</button>
-                    <p class="note-trigger" id="modal-trigger"></p>
-                    <div class="note-divider"></div>
-                    <p class="note-message" id="modal-message"></p>
-                </div>
-            </div>
-        </div>
-    </section>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <p class="footer-text">Made with love, just for you</p>
-        <button class="footer-heart" id="easter-egg-trigger" title="Click me" aria-label="Secret surprise">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-        </button>
+      <p class="footer-text">Made with love, just for you</p>
+      <button
+        class="footer-heart"
+        id="easter-egg-trigger"
+        title="Click me"
+        aria-label="Secret surprise"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+          />
+        </svg>
+      </button>
     </footer>
 
     <!-- Easter Egg Modal -->
-    <div class="easter-egg-modal" id="easter-egg-modal" role="dialog" aria-modal="true" aria-labelledby="easter-egg-message" aria-hidden="true">
-        <div class="easter-egg-backdrop"></div>
-        <div class="easter-egg-content">
-            <div class="confetti-container" id="confetti"></div>
-            <p class="easter-egg-message" id="easter-egg-message"></p>
-            <button class="easter-egg-close" data-modal-initial-focus>Close</button>
-        </div>
+    <div
+      class="easter-egg-modal"
+      id="easter-egg-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="easter-egg-message"
+      aria-hidden="true"
+    >
+      <div class="easter-egg-backdrop"></div>
+      <div class="easter-egg-content">
+        <div class="confetti-container" id="confetti"></div>
+        <p class="easter-egg-message" id="easter-egg-message"></p>
+        <button class="easter-egg-close" data-modal-initial-focus>Close</button>
+      </div>
     </div>
 
     <!-- Plan Modal -->
-    <div class="plan-modal" id="plan-modal" role="dialog" aria-modal="true" aria-labelledby="plan-title" aria-hidden="true">
-        <div class="plan-modal-backdrop"></div>
-        <div class="plan-modal-content">
-            <button class="plan-modal-close" data-modal-initial-focus aria-label="Close plan">&times;</button>
-            <div class="plan-modal-header">
-                <div class="plan-icon-wrapper" id="plan-icon"></div>
-                <div class="plan-header-text">
-                    <p class="plan-category" id="plan-category"></p>
-                    <h3 class="plan-title" id="plan-title"></h3>
-                </div>
-            </div>
-            <div class="plan-tags" id="plan-tags"></div>
-            <div class="plan-details">
-                <div class="plan-detail" id="plan-duration"></div>
-                <div class="plan-detail" id="plan-checklist"></div>
-                <div class="plan-detail" id="plan-note"></div>
-                <p class="plan-empty" id="plan-empty"></p>
-            </div>
+    <div
+      class="plan-modal"
+      id="plan-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="plan-title"
+      aria-hidden="true"
+    >
+      <div class="plan-modal-backdrop"></div>
+      <div class="plan-modal-content">
+        <button
+          class="plan-modal-close"
+          data-modal-initial-focus
+          aria-label="Close plan"
+        >
+          &times;
+        </button>
+        <div class="plan-modal-header">
+          <div class="plan-icon-wrapper" id="plan-icon"></div>
+          <div class="plan-header-text">
+            <p class="plan-category" id="plan-category"></p>
+            <h3 class="plan-title" id="plan-title"></h3>
+          </div>
         </div>
+        <div class="plan-tags" id="plan-tags"></div>
+        <div class="plan-details">
+          <div class="plan-detail" id="plan-duration"></div>
+          <div class="plan-detail" id="plan-checklist"></div>
+          <div class="plan-detail" id="plan-note"></div>
+          <p class="plan-empty" id="plan-empty"></p>
+        </div>
+      </div>
     </div>
 
     <script src="config.js"></script>
     <script src="storage.js"></script>
-    <script src="ui.js"></script>
-</body>
+    <script src="ui-core.js"></script>
+    <script src="ui-theme.js"></script>
+    <script src="ui-wheel.js"></script>
+    <script src="ui-filters.js"></script>
+    <script src="ui-ideas.js"></script>
+    <script src="ui-favorites.js"></script>
+    <script src="ui-plan.js"></script>
+    <script src="ui-notes.js"></script>
+    <script src="ui-effects.js"></script>
+    <script src="ui-init.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
+  </body>
 </html>
